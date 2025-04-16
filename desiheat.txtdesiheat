@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DesiHeat - Adult Entertainment Hub</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #f1f1f1;
+    }
+    header {
+      background-color: #1f1f1f;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+      color: #ff4c4c;
+    }
+    nav {
+      background-color: #282828;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0.5rem;
+    }
+    nav a {
+      color: #f1f1f1;
+      text-decoration: none;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+    }
+    .card {
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card p {
+      padding: 0.5rem;
+    }
+    footer {
+      background-color: #1f1f1f;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <header>DesiHeat 🔥</header>
+  <nav>
+    <a href="#videos">Videos</a>
+    <a href="#articles">Articles</a>
+    <a href="#submit">Submit</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="videos" class="grid">
+    <div class="card">
+      <img src="https://via.placeholder.com/300x180?text=Video+1" alt="Video 1">
+      <p>Hot Desi Couple - Watch Now</p>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/300x180?text=Video+2" alt="Video 2">
+      <p>Bhabhi Romance - Full HD</p>
+    </div>
+    <!-- Add more videos here -->
+  </section>
+
+  <section id="articles" class="grid">
+    <div class="card">
+      <p><strong>Best Toys for Couples</strong><br>
+      Try these top-rated products for ultimate pleasure. <a href="#">Buy now</a> (affiliate link)</p>
+    </div>
+    <div class="card">
+      <p><strong>5 Ways to Boost Your Sex Drive</strong><br>
+      Natural methods and expert tips that work. <a href="#">Learn more</a> (affiliate link)</p>
+    </div>
+  </section>
+
+  <section id="submit" class="grid">
+    <div class="card">
+      <p><strong>Coming Soon:</strong> Upload your own videos & become a creator on DesiHeat! 🔥</p>
+    </div>
+  </section>
+
+  <section id="contact" class="grid">
+    <div class="card">
+      <p>Have questions or business inquiries? <a href="mailto:contact@desiheat.com">Contact us</a></p>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 DesiHeat. All rights reserved.
+  </footer>
+</body>
+</html>

@@ -1,30 +1,71 @@
-
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #111;
-  color: #eee;
+  color: white;
 }
 header {
+  background: #e60073;
+  padding: 10px;
   text-align: center;
-  background-color: #b30000;
-  padding: 20px;
 }
-.videos, .articles {
-  padding: 20px;
-}
-.video-container {
-  margin-top: 10px;
+a {
+  color: #ff8080;
 }
 .article-link {
-  color: #ff4d4d;
-  text-decoration: none;
-  font-weight: bold;
+  display: block;
+  margin: 10px 0;
 }
-footer {
-  text-align: center;
-  font-size: 14px;
+.toggle-button {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: #333;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.search-input {
   padding: 10px;
+  width: 90%;
+  max-width: 500px;
+  margin: 20px auto;
+  display: block;
+  font-size: 1rem;
+}
+.video-card {
+  display: inline-block;
+  width: 300px;
+  margin: 10px;
   background: #222;
-  color: #aaa;
+  color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.video-card img {
+  width: 100%;
+  height: auto;
+}
+.video-card h3 {
+  padding: 10px;
+}
+.video-card a {
+  display: block;
+  padding: 10px;
+  background: #e60073;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+}
+body.dark {
+  background-color: #000;
+  color: #eee;
+}
+body.dark header {
+  background-color: #222;
+}
+body.dark .video-card {
+  background-color: #333;
 }

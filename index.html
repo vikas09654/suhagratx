@@ -13,6 +13,8 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      padding: 20px; /* Add padding for mobile screens */
+      box-sizing: border-box; /* Ensure padding doesn't affect width */
     }
     .age-verification-container {
       background-color: #fff;
@@ -20,14 +22,22 @@
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       text-align: center;
+      max-width: 400px; /* Limit container width for better readability on larger screens */
+      width: 100%; /* Make it responsive */
     }
-    .age-verification-text {
-      font-size: 1.2em;
+    .age-verification-title {
+      font-size: 1.5em;
       color: #333;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+    .age-verification-description {
+      font-size: 1em;
+      color: #555;
       margin-bottom: 20px;
     }
     .age-verification-warning {
-      font-size: 2em;
+      font-size: 2.5em;
       color: #ff9800;
       margin-bottom: 20px;
     }
@@ -38,6 +48,8 @@
       border-radius: 5px;
       cursor: pointer;
       margin: 5px;
+      width: 100%; /* Make buttons full width on mobile */
+      box-sizing: border-box;
     }
     .age-verification-yes {
       background-color: #4caf50;
@@ -55,9 +67,9 @@
 </head>
 <body>
   <div class="age-verification-container" id="ageVerification">
-    <p class="age-verification-warning">⚠️ 18+ Content Warning ⚠️</p>
-    <p class="age-verification-text">This website contains material that may be offensive or inappropriate for minors and is only intended for adults.</p>
-    <p class="age-verification-text">By proceeding, you confirm that you are 18 years of age or older.</p>
+    <p class="age-verification-warning">🔞</p>
+    <h2 class="age-verification-title">Welcome to SuhagratX</h2>
+    <p class="age-verification-description">This website contains adult content and is intended for individuals 18 years of age or older. Please confirm your age to proceed.</p>
     <button class="age-verification-button age-verification-yes" onclick="showContent()">Yes, I am 18+</button>
     <button class="age-verification-button age-verification-no" onclick="window.location.href='https://www.google.com'">No, Take Me Away</button>
   </div>

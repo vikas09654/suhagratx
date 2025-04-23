@@ -7,24 +7,24 @@
   <link rel="stylesheet" href="style.css" />
   <style>
     body {
-      margin: 0; /* Remove default body margin */
-      font-family: sans-serif; /* A basic font for readability */
+      margin: 0;
+      font-family: sans-serif;
     }
     .video-container {
       margin-bottom: 20px;
-      padding: 0 10px; /* Add some padding on the sides for mobile */
+      padding: 0 10px;
     }
     .video-container iframe {
       display: block;
       width: 100%;
-      aspect-ratio: 16 / 9; /* Standard video aspect ratio */
+      aspect-ratio: 16 / 9;
       border: none;
     }
     .video-container .video-title {
       text-align: center;
       margin-top: 5px;
       font-weight: bold;
-      padding: 0 10px; /* Match padding with video container */
+      padding: 0 10px;
     }
     header {
       background-color: #f0f0f0;
@@ -100,47 +100,47 @@
     <h2 style="text-align:center;">🔥 Featured Videos 🔥</h2>
 
     <div class="video-container">
-      <iframe src="https://www.xlx.xxx/embed/10746999" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.xlx.xxx/embed/10746999" frameborder="0" allowfullscreen data-video-id="video1"></iframe>
       <p class="video-title">Caressed And Cummed</p>
     </div>
 
     <div class="video-container">
-      <iframe src="https://www.xlx.xxx/embed/10751265" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.xlx.xxx/embed/10751265" frameborder="0" allowfullscreen data-video-id="video2"></iframe>
       <p class="video-title">Indian Bhabhi Hefty Bumpers Devar gets her beaver plumbed in Absence of Husband</p>
     </div>
 
     <div class="video-container">
-      <iframe src="https://www.xlx.xxx/embed/10749517" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.xlx.xxx/embed/10749517" frameborder="0" allowfullscreen data-video-id="video3"></iframe>
       <p class="video-title">I take advantage of my lil' stepsister looking out the window, to give her the poke of her life.</p>
     </div>
 
     <div class="video-container">
-      <iframe src="https://www.xlx.xxx/embed/10751477" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.xlx.xxx/embed/10751477" frameborder="0" allowfullscreen data-video-id="video4"></iframe>
       <p class="video-title">Hot Indian girlfriend gets her tight pussy pounded by her BF while her GF watches in awe</p>
     </div>
 
     <div class="video-container">
-      <iframe src="https://www.xlx.xxx/embed/10751262" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.xlx.xxx/embed/10751262" frameborder="0" allowfullscreen data-video-id="video5"></iframe>
       <p class="video-title">See adult movie star's first-ever time deep-sucking and getting boinked stiff in village</p>
     </div>
 
     <div class="video-container">
-      <iframe src="https://www.xlx.xxx/embed/10748481" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.xlx.xxx/embed/10748481" frameborder="0" allowfullscreen data-video-id="video6"></iframe>
       <p class="video-title">stepmom ravages stepson eighteen yo & get inner jizz shot while step-parent's witnessing soccer</p>
     </div>
 
     <div class="video-container">
-      <iframe src="https://www.xlx.xxx/embed/10748849" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.xlx.xxx/embed/10748849" frameborder="0" allowfullscreen data-video-id="video7"></iframe>
       <p class="video-title">Hot Desi teen Honeymoon takes first-ever night lovemaking and internal cumshot in Hindi audio</p>
     </div>
 
     <div class="video-container">
-      <iframe src="https://www.xlx.xxx/embed/10746178" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.xlx.xxx/embed/10746178" frameborder="0" allowfullscreen data-video-id="video8"></iframe>
       <p class="video-title">Hot babe bends over pulling down her panties and fingers cunt hole</p>
     </div>
 
     <div class="video-container">
-      <iframe src="https://www.xlx.xxx/embed/10747372" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.xlx.xxx/embed/10747372" frameborder="0" allowfullscreen data-video-id="video9"></iframe>
       <p class="video-title">Superb slurping and boning</p>
     </div>
 
@@ -159,12 +159,42 @@
     function filterArticles() {
       var input = document.querySelector('.search-input');
       var filter = input.value.toLowerCase();
-      var links = document.querySelectorAll('.article-link');
-      links.forEach(function(link) {
+      var videoContainers = document.querySelectorAll('.video-container');
+      var articleLinks = document.querySelectorAll('.article-link');
+
+      videoContainers.forEach(function(container) {
+        var titleElement = container.querySelector('.video-title');
+        if (titleElement) {
+          var title = titleElement.innerText.toLowerCase();
+          container.style.display = title.includes(filter) ? "block" : "none";
+        } else {
+          container.style.display = "none";
+        }
+      });
+
+      articleLinks.forEach(function(link) {
         const text = link.innerText.toLowerCase();
         link.style.display = text.includes(filter) ? "block" : "none";
       });
     }
+
+    // Function to pause all iframes
+    function pauseAllVideos() {
+      var iframes = document.querySelectorAll('iframe');
+      iframes.forEach(function(iframe) {
+        var iframeSrc = iframe.src;
+        iframe.src = iframeSrc; // Reloading the iframe effectively pauses it
+      });
+    }
+
+    // Add event listeners to play buttons (if you have them) or directly to the iframe clicks
+    var videoContainers = document.querySelectorAll('.video-container');
+    videoContainers.forEach(function(container) {
+      var iframe = container.querySelector('iframe');
+      if (iframe) {
+        iframe.addEventListener('click', pauseAllVideos);
+      }
+    });
   </script>
 </body>
 </html>

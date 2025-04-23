@@ -6,20 +6,79 @@
   <title>SuhagratX</title>
   <link rel="stylesheet" href="style.css" />
   <style>
+    body {
+      margin: 0; /* Remove default body margin */
+      font-family: sans-serif; /* A basic font for readability */
+    }
     .video-container {
       margin-bottom: 20px;
+      padding: 0 10px; /* Add some padding on the sides for mobile */
     }
     .video-container iframe {
+      display: block;
       width: 100%;
-      height: auto; /* Maintain aspect ratio */
-      display: block; /* Ensure it takes full width */
-      margin: 0 auto;
-      border: none; /* Remove default iframe border */
+      aspect-ratio: 16 / 9; /* Standard video aspect ratio */
+      border: none;
     }
     .video-container .video-title {
       text-align: center;
       margin-top: 5px;
       font-weight: bold;
+      padding: 0 10px; /* Match padding with video container */
+    }
+    header {
+      background-color: #f0f0f0;
+      padding: 10px;
+      text-align: center;
+    }
+    .search-input {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin: 10px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    .articles {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .article-link {
+      display: inline-block;
+      padding: 8px 15px;
+      margin: 5px;
+      background-color: #ddd;
+      color: #333;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .video-section {
+      padding-bottom: 20px;
+    }
+    .toggle-button {
+      padding: 8px 15px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .dark {
+      background-color: #333;
+      color: #f0f0f0;
+    }
+    .dark header {
+      background-color: #555;
+      color: #f0f0f0;
+    }
+    .dark .search-input {
+      background-color: #555;
+      color: #f0f0f0;
+      border-color: #777;
+    }
+    .dark .article-link {
+      background-color: #555;
+      color: #f0f0f0;
     }
   </style>
 </head>

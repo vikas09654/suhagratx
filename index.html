@@ -1,1 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SuhagratX</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Welcome to SuhagratX</h1>
+    <button class="toggle-button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+  </header>
 
+  <input type="text" class="search-input" onkeyup="filterArticles()" placeholder="Search videos or articles...">
+
+  <section class="articles">
+    <a class="article-link" href="category.html">Categories</a>
+    <a class="article-link" href="upload.html">Upload</a>
+    <a class="article-link" href="article.html">Read Articles</a>
+  </section>
+
+  <section class="video-section">
+    <h2 style="text-align:center;">🔥 Featured Videos 🔥</h2>
+    <div class="video-grid">
+
+      <div class="video-card">
+        <iframe width="1280" height="720" src="https://www.xlx.xxx/embed/10746999" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">Caressed And Cummed</p>
+      </div>
+
+      <div class="video-card">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10751265" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">Indian Bhabhi Hefty Bumpers Devar gets her beaver plumbed in Absence of Husband</p>
+      </div>
+
+      <div class="video-card">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10749517" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">I take advantage of my lil' stepsister looking out the window, to give her the poke of her life.</p>
+      </div>
+
+      <div class="video-card">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10751477" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">Hot Indian girlfriend gets her tight pussy pounded by her BF while her GF watches in awe</p>
+      </div>
+
+      <div class="video-card">
+        <iframe width="3840" height="2160" src="https://www.xlx.xxx/embed/10751262" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">See adult movie star's first-ever time deep-sucking and getting boinked stiff in village</p>
+      </div>
+
+      <div class="video-card">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10748481" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">stepmom ravages stepson eighteen yo & get inner jizz shot while step-parent's witnessing soccer</p>
+      </div>
+
+      <div class="video-card">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10748849" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">Hot Desi teen Honeymoon takes first-ever night lovemaking and internal cumshot in Hindi audio</p>
+      </div>
+
+      <div class="video-card">
+        <iframe width="1206" height="678" src="https://www.xlx.xxx/embed/10746178" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">Hot babe bends over pulling down her panties and fingers cunt hole</p>
+      </div>
+
+      <div class="video-card">
+        <iframe width="1280" height="720" src="https://www.xlx.xxx/embed/10747372" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">Superb slurping and boning</p>
+      </div>
+
+      </div>
+  </section>
+
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+      localStorage.setItem("darkMode", document.body.classList.contains("dark"));
+    }
+    window.onload = function() {
+      if (localStorage.getItem("darkMode") === "true") {
+        document.body.classList.add("dark");
+      }
+    };
+    function filterArticles() {
+      var input = document.querySelector('.search-input');
+      var filter = input.value.toLowerCase();
+      var links = document.querySelectorAll('.article-link');
+      links.forEach(function(link) {
+        const text = link.innerText.toLowerCase();
+        link.style.display = text.includes(filter) ? "block" : "none";
+      });
+    }
+  </script>
+</body>
+</html>

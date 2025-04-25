@@ -15,7 +15,6 @@
       min-height: 100vh;
       padding: 20px;
       box-sizing: border-box;
-      transition: background-color 0.3s, color 0.3s;
     }
     .age-verification-container {
       background-color: #fff;
@@ -51,7 +50,6 @@
       margin: 5px;
       width: 100%;
       box-sizing: border-box;
-      transition: background-color 0.3s;
     }
     .age-verification-yes {
       background-color: #4caf50;
@@ -69,7 +67,6 @@
       padding: 10px;
       text-align: center;
       margin-bottom: 20px;
-      transition: background-color 0.3s;
     }
     .search-input {
       width: calc(100% - 20px);
@@ -78,7 +75,6 @@
       border: 1px solid #ccc;
       border-radius: 5px;
       box-sizing: border-box;
-      transition: background-color 0.3s, border-color 0.3s;
     }
     .articles {
       text-align: center;
@@ -92,7 +88,6 @@
       color: #333;
       text-decoration: none;
       border-radius: 5px;
-      transition: background-color 0.3s, color 0.3s;
     }
     .video-section {
       padding-bottom: 20px;
@@ -121,7 +116,6 @@
       border-radius: 5px;
       cursor: pointer;
       margin-top: 10px;
-      transition: background-color 0.3s;
     }
     .dark {
       background-color: #333;
@@ -140,17 +134,15 @@
       background-color: #555;
       color: #f0f0f0;
     }
-    .dark .toggle-button {
-      background-color: #0056b3;
-    }
   </style>
+  <link rel="stylesheet" href="style.css" class="main-style">
 </head>
 <body>
   <div class="age-verification-container" id="ageVerification">
     <p class="age-verification-warning">🔞</p>
     <h2 class="age-verification-title">Welcome to SuhagratX</h2>
     <p class="age-verification-description">This website contains adult content and is intended for individuals 18 years of age or older. Please confirm your age to proceed.</p>
-    <button class="age-verification-button age-verification-yes" onclick="showContent()">Yes, I am 18+</button>
+    <button class="age-verification-button age-verification-yes" onclick="verifyAge()">Yes, I am 18+</button>
     <button class="age-verification-button age-verification-no" onclick="window.location.href='https://www.google.com'">No, Take Me Away</button>
   </div>
 
@@ -160,7 +152,7 @@
       <button class="toggle-button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
     </header>
 
-    <input type="text" class="search-input" onkeyup="filterArticles()" placeholder="Search videos or articles..." id="searchInput">
+    <input type="text" class="search-input" onkeyup="filterArticles()" placeholder="Search videos or articles...">
 
     <section class="articles">
       <a class="article-link" href="category.html">Categories</a>
@@ -170,98 +162,134 @@
     <section class="video-section">
       <h2 style="text-align:center;">🔥 Featured Videos 🔥</h2>
 
-      <div class="video-container" data-video-title="caressed and cummed">
-        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10746999" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+      <div class="video-container">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10746999" frameborder="0" allowfullscreen data-video-id="video1"></iframe>
         <p class="video-title">Caressed And Cummed</p>
       </div>
 
-      <div class="video-container" data-video-title="indian bhabhi">
-        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10751265" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+      <div class="video-container">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10751265" frameborder="0" allowfullscreen data-video-id="video2"></iframe>
         <p class="video-title">Indian Bhabhi Hefty Bumpers Devar gets her beaver plumbed in Absence of Husband</p>
       </div>
 
-      <div class="video-container" data-video-title="stepsister">
-        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10749517" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+      <div class="video-container">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10749517" frameborder="0" allowfullscreen data-video-id="video3"></iframe>
         <p class="video-title">I take advantage of my lil' stepsister looking out the window, to give her the poke of her life.</p>
       </div>
 
-      <div class="video-container" data-video-title="indian girlfriend">
-        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10751477" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+      <div class="video-container">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10751477" frameborder="0" allowfullscreen data-video-id="video4"></iframe>
         <p class="video-title">Hot Indian girlfriend gets her tight pussy pounded by her BF while her GF watches in awe</p>
       </div>
 
-      <div class="video-container" data-video-title="adult movie star">
-        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10751262" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+      <div class="video-container">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10751262" frameborder="0" allowfullscreen data-video-id="video5"></iframe>
         <p class="video-title">See adult movie star's first-ever time deep-sucking and getting boinked stiff in village</p>
       </div>
 
-      <div class="video-container" data-video-title="stepmom">
-        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10748481" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
-        <p class="video-title">Stepmom ravages stepson eighteen yo & get inner jizz shot while step-parent's witnessing soccer</p>
+      <div class="video-container">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10748481" frameborder="0" allowfullscreen data-video-id="video6"></iframe>
+        <p class="video-title">stepmom ravages stepson eighteen yo & get inner jizz shot while step-parent's witnessing soccer</p>
       </div>
 
-      <div class="video-container" data-video-title="desi teen honeymoon">
-        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10748849" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+      <div class="video-container">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10748849" frameborder="0" allowfullscreen data-video-id="video7"></iframe>
         <p class="video-title">Hot Desi teen Honeymoon takes first-ever night lovemaking and internal cumshot in Hindi audio</p>
       </div>
 
-      <div class="video-container" data-video-title="hot babe">
-        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10746178" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+      <div class="video-container">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10746178" frameborder="0" allowfullscreen data-video-id="video8"></iframe>
         <p class="video-title">Hot babe bends over pulling down her panties and fingers cunt hole</p>
       </div>
 
-      <div class="video-container" data-video-title="superb slurping">
-        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10747372" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+      <div class="video-container">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10747372" frameborder="0" allowfullscreen data-video-id="video9"></iframe>
         <p class="video-title">Superb slurping and boning</p>
       </div>
 
-      <div class="video-container" data-video-title="desi village bhabhi">
-        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10750904" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+      <div class="video-container">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10750904" frameborder="0" allowfullscreen></iframe>
         <p class="video-title">Desi Village Bhabhi GONZO: Real Indian Homemade Hook-up with Ample Fun bags and Yam-sized Rump!</p>
       </div>
-    </section>
-  </div>
 
-  <script>
-    // Check if age is already verified
-    if(localStorage.getItem('ageVerified') {
-      showContent();
-    }
+      <div class="video-container">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10751459" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">Watch this Indian wifey cheat on her husband and get ruthlessly pounded by her pal's big hard cock</p>
+      </div>
 
-    // Show main content after age verification
-    function showContent() {
-      document.getElementById('ageVerification').classList.add('hidden');
-      document.getElementById('mainContent').classList.remove('hidden');
-      localStorage.setItem('ageVerified', 'true');
-    }
+      <div class="video-container">
+        <iframe width="1280" height="720" src="https://www.xlx.xxx/embed/10748354" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">ASMR | barely legal Y.O. SCHOOLGRL IN STOCKING RIDES MAN MEAT TILL SPLOOG</p>
+      </div>
 
-    // Toggle dark mode
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark');
-      localStorage.setItem('darkMode', document.body.classList.contains('dark'));
-    }
+      <div class="video-container">
+        <iframe width="1080" height="607" src="https://www.xlx.xxx/embed/10750540" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">Indian school superslut takes a tough pummeling in rear end-fashion with her taut legal-yr-aged fuckbox</p>
+      </div>
 
-    // Check for saved dark mode preference
-    if(localStorage.getItem('darkMode') === 'true') {
-      document.body.classList.add('dark');
-    }
+      <div class="video-container">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10748417" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">18 YO Babe Wiggles Her Ass on Your Rock Hard Manstick</p>
+      </div>
 
-    // Filter videos based on search input
-    function filterArticles() {
-      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-      const videoContainers = document.querySelectorAll('.video-container');
-      
-      videoContainers.forEach(container => {
-        const title = container.getAttribute('data-video-title') || 
-                     container.querySelector('.video-title').textContent.toLowerCase();
-        
-        if(title.includes(searchTerm)) {
-          container.style.display = 'block';
-        } else {
-          container.style.display = 'none';
-        }
-      });
-    }
-  </script>
-</body>
-</html>
+      <div class="video-container">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10748466" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">SMASH ME if you like my undergarments! Romantic morning fuck-fest with 18 yo platinum-ash-blonde teen with natural bra-stuffers</p>
+      </div>
+
+      <div class="video-container">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10750467" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">Indian teenager Indian Woman Sex & her first-ever BOYFRIEND Hump Desi in my Room - Super-steamy & mighty!</p>
+      </div>
+
+      <div class="video-container">
+        <iframe width="1280" height="720" src="https://www.xlx.xxx/embed/10750657" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">Casey Calvert trades her electrified bill for a large black group-tear up</p>
+      </div>
+
+      <div class="video-container">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10748810" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">Indian Supah-Lovely female blowage like a mega-tramp and licking Cum</p>
+      </div>
+
+      <div class="video-container">
+        <iframe width="1280" height="720" src="https://www.xlx.xxx/embed/10747373" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">Super Hot teenager loves anal invasion internal ejaculation</p>
+      </div>
+
+      <div class="video-container">
+        <iframe width="1280" height="720" src="https://www.xlx.xxx/embed/10749066" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">Molten mother from Africa gets insatiable on the hook with a dark-hued man</p>
+      </div>
+
+      <div class="video-container">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10751483" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">Naughty Indian Cougar lecturer seduced by schoolgirl during investigation</p>
+      </div>
+
+      <div class="video-container">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10748434" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">Step Daddy teaches naughty Step Daughter-In-Law-In-Law a lesson due to poor grades at school / Japanese schoolgirl</p>
+      </div>
+
+      <div class="video-container">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10747894" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">The Rooster Crows At Noon</p>
+      </div>
+
+      <div class="video-container">
+        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10748689" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">Step step-sister gets stuck everywhere, how will it end?</p>
+      </div>
+
+      <div class="video-container">
+        <iframe width="1274" height="674" src="https://www.xlx.xxx/embed/10746470" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">Chubby black whore gets her pierced pussy and nipples fucked hard</p>
+      </div>
+
+      <div class="video-container">
+        <iframe width="1280" height="720" src="https://www.xlx.xxx/embed/10748803" frameborder="0" allowfullscreen></iframe>
+        <p class="video-title">desi Stepsister Neha compilation video plumbing rock hard</p>
+      </div>
+
+      <div

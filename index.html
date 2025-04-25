@@ -4,91 +4,262 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SuhagratX</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .age-verification-container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+    .age-verification-title {
+      font-size: 1.5em;
+      color: #333;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+    .age-verification-description {
+      font-size: 1em;
+      color: #555;
+      margin-bottom: 20px;
+    }
+    .age-verification-warning {
+      font-size: 2.5em;
+      color: #ff9800;
+      margin-bottom: 20px;
+    }
+    .age-verification-button {
+      padding: 12px 25px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+      width: 100%;
+      box-sizing: border-box;
+      transition: background-color 0.3s;
+    }
+    .age-verification-yes {
+      background-color: #4caf50;
+      color: white;
+    }
+    .age-verification-no {
+      background-color: #f44336;
+      color: white;
+    }
+    .hidden {
+      display: none;
+    }
+    header {
+      background-color: #f0f0f0;
+      padding: 10px;
+      text-align: center;
+      margin-bottom: 20px;
+      transition: background-color 0.3s;
+    }
+    .search-input {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      transition: background-color 0.3s, border-color 0.3s;
+    }
+    .articles {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .article-link {
+      display: inline-block;
+      padding: 8px 15px;
+      margin: 5px;
+      background-color: #ddd;
+      color: #333;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .video-section {
+      padding-bottom: 20px;
+    }
+    .video-container {
+      margin-bottom: 20px;
+      padding: 0 10px;
+    }
+    .video-container iframe {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: none;
+    }
+    .video-container .video-title {
+      text-align: center;
+      margin-top: 5px;
+      font-weight: bold;
+      padding: 0 10px;
+    }
+    .toggle-button {
+      padding: 8px 15px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+    }
+    .dark {
+      background-color: #333;
+      color: #f0f0f0;
+    }
+    .dark header {
+      background-color: #555;
+      color: #f0f0f0;
+    }
+    .dark .search-input {
+      background-color: #555;
+      color: #f0f0f0;
+      border-color: #777;
+    }
+    .dark .article-link {
+      background-color: #555;
+      color: #f0f0f0;
+    }
+    .dark .toggle-button {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Welcome to SuhagratX</h1>
-    <button class="toggle-button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-  </header>
+  <div class="age-verification-container" id="ageVerification">
+    <p class="age-verification-warning">🔞</p>
+    <h2 class="age-verification-title">Welcome to SuhagratX</h2>
+    <p class="age-verification-description">This website contains adult content and is intended for individuals 18 years of age or older. Please confirm your age to proceed.</p>
+    <button class="age-verification-button age-verification-yes" onclick="showContent()">Yes, I am 18+</button>
+    <button class="age-verification-button age-verification-no" onclick="window.location.href='https://www.google.com'">No, Take Me Away</button>
+  </div>
 
-  <input type="text" class="search-input" onkeyup="filterArticles()" placeholder="Search videos or articles...">
+  <div id="mainContent" class="hidden">
+    <header>
+      <h1>Welcome to SuhagratX</h1>
+      <button class="toggle-button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    </header>
 
-  <section class="articles">
-    <a class="article-link" href="category.html">Categories</a>
-    <a class="article-link" href="upload.html">Upload</a>
-    <a class="article-link" href="article.html">Read Articles</a>
-  </section>
+    <input type="text" class="search-input" onkeyup="filterArticles()" placeholder="Search videos or articles..." id="searchInput">
 
-  <section class="video-section">
-    <h2 style="text-align:center;">🔥 Featured Videos 🔥</h2>
-    <div class="video-grid">
+    <section class="articles">
+      <a class="article-link" href="category.html">Categories</a>
+      <a class="article-link" href="article.html">Read Articles</a>
+    </section>
 
-      <div class="video-card">
-        <iframe width="1280" height="720" src="https://www.xlx.xxx/embed/10746999" frameborder="0" allowfullscreen></iframe>
+    <section class="video-section">
+      <h2 style="text-align:center;">🔥 Featured Videos 🔥</h2>
+
+      <div class="video-container" data-video-title="caressed and cummed">
+        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10746999" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
         <p class="video-title">Caressed And Cummed</p>
       </div>
 
-      <div class="video-card">
-        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10751265" frameborder="0" allowfullscreen></iframe>
+      <div class="video-container" data-video-title="indian bhabhi">
+        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10751265" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
         <p class="video-title">Indian Bhabhi Hefty Bumpers Devar gets her beaver plumbed in Absence of Husband</p>
       </div>
 
-      <div class="video-card">
-        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10749517" frameborder="0" allowfullscreen></iframe>
+      <div class="video-container" data-video-title="stepsister">
+        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10749517" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
         <p class="video-title">I take advantage of my lil' stepsister looking out the window, to give her the poke of her life.</p>
       </div>
 
-      <div class="video-card">
-        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10751477" frameborder="0" allowfullscreen></iframe>
+      <div class="video-container" data-video-title="indian girlfriend">
+        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10751477" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
         <p class="video-title">Hot Indian girlfriend gets her tight pussy pounded by her BF while her GF watches in awe</p>
       </div>
 
-      <div class="video-card">
-        <iframe width="3840" height="2160" src="https://www.xlx.xxx/embed/10751262" frameborder="0" allowfullscreen></iframe>
+      <div class="video-container" data-video-title="adult movie star">
+        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10751262" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
         <p class="video-title">See adult movie star's first-ever time deep-sucking and getting boinked stiff in village</p>
       </div>
 
-      <div class="video-card">
-        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10748481" frameborder="0" allowfullscreen></iframe>
-        <p class="video-title">stepmom ravages stepson eighteen yo & get inner jizz shot while step-parent's witnessing soccer</p>
+      <div class="video-container" data-video-title="stepmom">
+        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10748481" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+        <p class="video-title">Stepmom ravages stepson eighteen yo & get inner jizz shot while step-parent's witnessing soccer</p>
       </div>
 
-      <div class="video-card">
-        <iframe width="1920" height="1080" src="https://www.xlx.xxx/embed/10748849" frameborder="0" allowfullscreen></iframe>
+      <div class="video-container" data-video-title="desi teen honeymoon">
+        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10748849" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
         <p class="video-title">Hot Desi teen Honeymoon takes first-ever night lovemaking and internal cumshot in Hindi audio</p>
       </div>
 
-      <div class="video-card">
-        <iframe width="1206" height="678" src="https://www.xlx.xxx/embed/10746178" frameborder="0" allowfullscreen></iframe>
+      <div class="video-container" data-video-title="hot babe">
+        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10746178" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
         <p class="video-title">Hot babe bends over pulling down her panties and fingers cunt hole</p>
       </div>
 
-      <div class="video-card">
-        <iframe width="1280" height="720" src="https://www.xlx.xxx/embed/10747372" frameborder="0" allowfullscreen></iframe>
+      <div class="video-container" data-video-title="superb slurping">
+        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10747372" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
         <p class="video-title">Superb slurping and boning</p>
       </div>
 
+      <div class="video-container" data-video-title="desi village bhabhi">
+        <iframe width="100%" height="auto" src="https://www.xlx.xxx/embed/10750904" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+        <p class="video-title">Desi Village Bhabhi GONZO: Real Indian Homemade Hook-up with Ample Fun bags and Yam-sized Rump!</p>
       </div>
-  </section>
+    </section>
+  </div>
 
   <script>
-    function toggleDarkMode() {
-      document.body.classList.toggle("dark");
-      localStorage.setItem("darkMode", document.body.classList.contains("dark"));
+    // Check if age is already verified
+    if(localStorage.getItem('ageVerified') {
+      showContent();
     }
-    window.onload = function() {
-      if (localStorage.getItem("darkMode") === "true") {
-        document.body.classList.add("dark");
-      }
-    };
+
+    // Show main content after age verification
+    function showContent() {
+      document.getElementById('ageVerification').classList.add('hidden');
+      document.getElementById('mainContent').classList.remove('hidden');
+      localStorage.setItem('ageVerified', 'true');
+    }
+
+    // Toggle dark mode
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+    }
+
+    // Check for saved dark mode preference
+    if(localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark');
+    }
+
+    // Filter videos based on search input
     function filterArticles() {
-      var input = document.querySelector('.search-input');
-      var filter = input.value.toLowerCase();
-      var links = document.querySelectorAll('.article-link');
-      links.forEach(function(link) {
-        const text = link.innerText.toLowerCase();
-        link.style.display = text.includes(filter) ? "block" : "none";
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const videoContainers = document.querySelectorAll('.video-container');
+      
+      videoContainers.forEach(container => {
+        const title = container.getAttribute('data-video-title') || 
+                     container.querySelector('.video-title').textContent.toLowerCase();
+        
+        if(title.includes(searchTerm)) {
+          container.style.display = 'block';
+        } else {
+          container.style.display = 'none';
+        }
       });
     }
   </script>

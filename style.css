@@ -14,9 +14,27 @@ header {
   border-bottom: 1px solid #eee; /* Light border for separation */
 }
 
-header h1 {
-  color: #007bff; /* Primary color for heading */
-  margin-bottom: 10px;
+.logo {
+  font-size: 48px;
+  font-weight: bold;
+  font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif; /* Bold premium font */
+  display: inline-block;
+  transition: all 0.3s ease; /* Smooth transition */
+  cursor: pointer;
+}
+
+.logo-black {
+  color: #000; /* Black text for 'XXX' */
+}
+
+.logo-orange {
+  color: #ff9900; /* Orange text for 'VAULT' */
+}
+
+/* Hover effect for logo */
+.logo:hover {
+  transform: scale(1.05); /* Slight zoom */
+  text-shadow: 0 0 10px #ff9900, 0 0 20px #ff9900; /* Orange glow */
 }
 
 .toggle-button {
@@ -28,6 +46,7 @@ header h1 {
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease; /* Smooth hover effect */
+  margin-top: 10px;
 }
 
 .toggle-button:hover {
@@ -99,6 +118,7 @@ header h1 {
   color: #555;
 }
 
+/* DARK MODE */
 .dark {
   background-color: #222;
   color: #eee;
@@ -109,8 +129,12 @@ header h1 {
   border-bottom: 1px solid #555;
 }
 
-.dark header h1 {
-  color: #00aaff;
+.dark .logo-black {
+  color: #fff; /* White text for 'XXX' in dark mode */
+}
+
+.dark .logo-orange {
+  color: #ff9900; /* Orange stays same */
 }
 
 .dark .toggle-button {

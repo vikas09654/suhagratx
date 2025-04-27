@@ -92,10 +92,38 @@
     .hidden {
       display: none;
     }
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 1200px;
+      margin-top: 30px;
+    }
+    .video-card {
+      background-color: #111;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,255,255,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .video-card video {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .video-card p {
+      font-size: 1em;
+      color: #0ff;
+      text-align: center;
+    }
   </style>
 </head>
 
 <body>
+  <!-- Age Verification Modal -->
   <div class="age-verification-container" id="ageVerification">
     <p class="age-verification-warning">🔞</p>
     <h2 class="age-verification-title">Welcome to <span class="neon-text">XXXVAULT</span></h2>
@@ -104,14 +132,49 @@
     <button class="age-verification-button age-verification-no" onclick="window.location.href='https://www.google.com'">No, Take Me Away</button>
   </div>
 
+  <!-- Main Content -->
   <div id="mainContent" class="hidden">
     <h1 class="neon-text">XXXVAULT</h1>
 
-    <!-- Yahan se aapka pura main content, videos waala part rahega jaise aapne diya hai -->
-    <!-- Main content code aapka unchanged hai, waisa ka waisa chalega -->
+    <div class="video-grid">
+      <!-- Video 1 -->
+      <div class="video-card">
+        <video controls muted>
+          <source src="video1.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <p>Video Title 1</p>
+      </div>
 
-    <!-- Example: Add your existing videos and features here -->
+      <!-- Video 2 -->
+      <div class="video-card">
+        <video controls muted>
+          <source src="video2.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <p>Video Title 2</p>
+      </div>
 
+      <!-- Video 3 -->
+      <div class="video-card">
+        <video controls muted>
+          <source src="video3.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <p>Video Title 3</p>
+      </div>
+
+      <!-- Video 4 -->
+      <div class="video-card">
+        <video controls muted>
+          <source src="video4.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <p>Video Title 4</p>
+      </div>
+
+      <!-- Aur videos add karne hai toh yaha paste karte jaa -->
+    </div>
   </div>
 
   <script>

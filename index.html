@@ -31,50 +31,58 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px; /* Increased gap */
             flex-grow: 1; /* Make logo take up available space */
         }
 
         .logo img {
-            width: 50px; /* Thoda bada logo */
-            height: 50px; /* Thoda bada logo */
+            width: 60px; /* Even bigger logo */
+            height: 60px; /* Even bigger logo */
         }
 
         .logo h1 {
-            font-size: 32px; /* Aur bada title */
+            font-size: 48px; /* Much bigger title */
             font-weight: bold;
-            letter-spacing: 3px; /* Zyada space for premium look */
+            letter-spacing: 5px; /* More space for impact */
             margin: 0; /* Remove default margin */
+            text-shadow: 2px 2px #e91e63; /* Add a shadow for emphasis */
         }
 
         /* Buttons */
         .top-buttons {
             display: flex;
-            gap: 10px;
+            gap: 15px; /* Increased gap */
         }
 
         .top-buttons button {
             background-color: #e91e63;
-            border: none;
+            border: 2px solid #e91e63; /* Add a border */
             color: white;
-            padding: 10px 15px; /* Thoda bada button padding */
-            border-radius: 5px;
+            padding: 12px 20px; /* Larger button padding */
+            border-radius: 8px; /* More rounded corners */
             cursor: pointer;
-            font-size: 16px; /* Thoda bada font */
+            font-size: 18px; /* Bigger font */
+            transition: background-color 0.3s ease; /* Add transition for hover effect */
+        }
+
+        .top-buttons button:hover {
+            background-color: #c8104a; /* Darker shade on hover */
+            border-color: #c8104a;
         }
 
         .form-container {
             display: none;
-            background-color: rgba(0, 0, 0, 0.9);
-            padding: 20px;
-            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.95); /* Slightly darker background */
+            padding: 30px; /* Larger padding */
+            border-radius: 12px; /* More rounded corners */
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            max-width: 90%;
-            width: 400px;
+            max-width: 95%; /* Wider form */
+            width: 450px; /* Fixed width */
             z-index: 1001;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Add shadow */
         }
 
         .form-container.active {
@@ -83,79 +91,103 @@
 
         .form-container h2 {
             text-align: center;
+            font-size: 32px; /* Bigger heading */
+            margin-bottom: 20px;
+            color: #e91e63;
         }
 
         .form-container input {
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
+            padding: 15px; /* Larger input */
+            margin: 15px 0; /* Larger margin */
             background-color: #333;
             border: none;
             color: white;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 8px; /* Rounded corners */
+            font-size: 18px; /* Bigger font */
         }
 
         .form-container button {
             width: 100%;
-            padding: 12px; /* Thoda bada button */
+            padding: 15px; /* Larger button */
             background-color: #e91e63;
             color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 18px; /* Thoda bada font */
+            border-radius: 8px; /* Rounded corners */
+            font-size: 20px; /* Bigger font */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container button:hover {
+            background-color: #c8104a;
         }
 
         .search-bar {
             display: flex;
             width: 100%;
-            margin-bottom: 16px;
+            margin-bottom: 20px; /* Larger margin */
         }
 
         .search-bar input {
             flex: 1;
-            padding: 12px; /* Thoda bada input */
-            border: none;
-            border-radius: 5px 0 0 5px;
-            font-size: 16px;
+            padding: 15px; /* Larger input */
+            border: 2px solid #333; /* Add border */
+            border-radius: 8px 0 0 8px; /* Rounded corners */
+            font-size: 18px; /* Bigger font */
+            background-color: #222;
+            color: white;
         }
 
         .search-bar button {
             background-color: #e91e63;
-            padding: 12px 18px; /* Thoda bada button */
+            padding: 15px 20px; /* Larger button */
             border: none;
             color: white;
-            border-radius: 0 5px 5px 0;
+            border-radius: 0 8px 8px 0; /* Rounded corners */
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px; /* Bigger font */
+            transition: background-color 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background-color: #c8104a;
         }
 
         .categories {
             display: flex;
             overflow-x: auto;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 15px; /* Increased gap */
+            margin-bottom: 25px; /* Larger margin */
         }
 
         .categories button {
-            padding: 10px 15px; /* Thoda bada button */
+            padding: 12px 20px; /* Larger button */
             background-color: #333;
-            border: none;
+            border: 2px solid #333; /* Add border */
             color: white;
-            border-radius: 5px;
+            border-radius: 8px; /* Rounded corners */
             white-space: nowrap;
             cursor: pointer;
             font-size: 16px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .categories button.active {
             background-color: #e91e63;
+            border-color: #e91e63;
+            color: white;
+        }
+
+        .categories button:hover:not(.active) {
+            background-color: #555;
+            border-color: #555;
         }
 
         .video-section {
             display: none;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: 20px; /* Larger gap */
         }
 
         .video-section.active {
@@ -164,9 +196,10 @@
 
         .video-card {
             background-color: #222;
-            padding: 10px;
-            border-radius: 8px;
+            padding: 15px; /* Larger padding */
+            border-radius: 10px; /* More rounded corners */
             flex: 1 1 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Add shadow */
         }
 
         @media (min-width: 600px) {
@@ -182,12 +215,12 @@
         }
 
         .video-card h3 {
-            font-size: 18px; /* Thoda bada font */
-            margin: 0 0 8px;
+            font-size: 20px; /* Bigger font */
+            margin: 0 0 10px; /* Larger margin */
         }
 
         .video-card p {
-            font-size: 16px; /* Thoda bada font */
+            font-size: 16px;
         }
 
         /* Age Modal */
@@ -197,7 +230,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.98); /* Even darker background */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -206,39 +239,47 @@
 
         .age-verification .modal-content {
             background-color: #222;
-            padding: 25px; /* Thoda bada padding */
-            border-radius: 10px;
+            padding: 35px; /* Even larger padding */
+            border-radius: 15px; /* More rounded corners */
             text-align: center;
-            max-width: 90%;
-            width: 450px; /* Thoda bada modal */
+            max-width: 95%; /* Wider modal */
+            width: 500px; /* Fixed width */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7); /* Stronger shadow */
         }
 
         .age-verification .age-sign {
-            font-size: 60px; /* Aur bada sign */
+            font-size: 72px; /* Even bigger sign */
             color: #e91e63;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px #c8104a; /* Add shadow */
         }
 
         .age-verification h2 {
-            font-size: 28px; /* Bada title */
-            margin-bottom: 15px;
+            font-size: 36px; /* Even bigger title */
+            margin-bottom: 20px;
+            color: #e91e63;
         }
 
         .age-verification p {
-            font-size: 18px; /* Bada paragraph */
-            margin-bottom: 20px;
+            font-size: 20px; /* Even bigger paragraph */
+            margin-bottom: 25px;
         }
 
         .age-verification button {
             width: 100%;
-            margin-top: 12px;
-            padding: 12px; /* Bada button */
+            margin-top: 15px;
+            padding: 15px; /* Even bigger button */
             background-color: #e91e63;
             border: none;
             color: white;
-            font-size: 20px; /* Bada font */
-            border-radius: 5px;
+            font-size: 22px; /* Even bigger font */
+            border-radius: 8px; /* Rounded corners */
             cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .age-verification button:hover {
+            background-color: #c8104a;
         }
     </style>
 </head>

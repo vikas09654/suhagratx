@@ -150,9 +150,63 @@
     .video-card p {
       font-size: 14px;
     }
+
+    /* Age Verification Modal */
+    .age-verification {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .age-verification .modal-content {
+      background-color: #222;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .age-verification input {
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #333;
+      color: white;
+      font-size: 16px;
+    }
+
+    .age-verification button {
+      width: 100%;
+      padding: 10px;
+      background-color: #e91e63;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
+  <!-- Age Verification Modal -->
+  <div id="ageVerification" class="age-verification">
+    <div class="modal-content">
+      <h2>Age Verification</h2>
+      <p>Are you 18 years or older?</p>
+      <button onclick="verifyAge(true)">Yes</button>
+      <button onclick="verifyAge(false)">No</button>
+    </div>
+  </div>
+
   <div class="container">
     <!-- Login/Signup Buttons -->
     <div style="display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 20px;">
@@ -226,51 +280,5 @@
   </div>
 
   <script>
-    // Toggle Login/Signup Forms
-    function toggleForm(formType) {
-      const loginForm = document.getElementById('loginForm');
-      const signupForm = document.getElementById('signupForm');
-
-      if (formType === 'login') {
-        loginForm.classList.add('active');
-        signupForm.classList.remove('active');
-      } else if (formType === 'signup') {
-        signupForm.classList.add('active');
-        loginForm.classList.remove('active');
-      }
-    }
-
-    // Show category section
-    function showCategory(categoryId) {
-      const sections = document.querySelectorAll('.video-section');
-      const buttons = document.querySelectorAll('.categories button');
-
-      sections.forEach(section => {
-        section.classList.remove('active');
-      });
-
-      buttons.forEach(btn => {
-        btn.classList.remove('active');
-      });
-
-      document.getElementById(categoryId).classList.add('active');
-      event.target.classList.add('active');
-    }
-
-    // Filter videos based on search input
-    function filterVideos() {
-      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-      const videoCards = document.querySelectorAll('.video-card');
-
-      videoCards.forEach(card => {
-        const title = card.querySelector('h3').innerText.toLowerCase();
-        if (title.includes(searchTerm)) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
-  </script>
-</body>
-</html>
+    // Age Verification Function
+    function verifyAge(is

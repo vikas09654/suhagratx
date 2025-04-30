@@ -20,6 +20,52 @@
       margin: auto;
     }
 
+    /* Login/Signup Form */
+    .form-container {
+      display: none;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .form-container.active {
+      display: block;
+    }
+
+    .form-container h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-container input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #333;
+      color: white;
+      font-size: 16px;
+    }
+
+    .form-container button {
+      width: 100%;
+      padding: 10px;
+      background-color: #e91e63;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Rest of the page */
     .search-bar {
       display: flex;
       margin-bottom: 20px;
@@ -108,11 +154,19 @@
 </head>
 <body>
   <div class="container">
+    <!-- Login/Signup Buttons -->
+    <div style="display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 20px;">
+      <button onclick="toggleForm('login')">Login</button>
+      <button onclick="toggleForm('signup')">Signup</button>
+    </div>
+
+    <!-- Search Bar -->
     <div class="search-bar">
-      <input type="text" placeholder="Search videos..." />
+      <input type="text" id="searchInput" placeholder="Search videos..." oninput="filterVideos()"/>
       <button><i class="fas fa-search"></i></button>
     </div>
 
+    <!-- Categories -->
     <div class="categories">
       <button onclick="showCategory('desi')" class="active">Desi Homemade</button>
       <button onclick="showCategory('bhabhi')">Bhabhi Special</button>
@@ -130,7 +184,7 @@
       <button onclick="showCategory('stepsister')">Stepsister</button>
     </div>
 
-    <!-- Example Sections -->
+    <!-- Example Video Sections -->
     <div id="desi" class="video-section active">
       <div class="video-card">
         <h3>Desi Homemade Video 1</h3>
@@ -149,10 +203,44 @@
       </div>
     </div>
 
-    <!-- Add more categories the same way -->
+  </div>
+
+  <!-- Login/Signup Forms -->
+  <div id="loginForm" class="form-container">
+    <h2>Login</h2>
+    <form>
+      <input type="text" placeholder="Username" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <div id="signupForm" class="form-container">
+    <h2>Signup</h2>
+    <form>
+      <input type="text" placeholder="Username" required />
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Signup</button>
+    </form>
   </div>
 
   <script>
+    // Toggle Login/Signup Forms
+    function toggleForm(formType) {
+      const loginForm = document.getElementById('loginForm');
+      const signupForm = document.getElementById('signupForm');
+
+      if (formType === 'login') {
+        loginForm.classList.add('active');
+        signupForm.classList.remove('active');
+      } else if (formType === 'signup') {
+        signupForm.classList.add('active');
+        loginForm.classList.remove('active');
+      }
+    }
+
+    // Show category section
     function showCategory(categoryId) {
       const sections = document.querySelectorAll('.video-section');
       const buttons = document.querySelectorAll('.categories button');
@@ -167,6 +255,21 @@
 
       document.getElementById(categoryId).classList.add('active');
       event.target.classList.add('active');
+    }
+
+    // Filter videos based on search input
+    function filterVideos() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const videoCards = document.querySelectorAll('.video-card');
+
+      videoCards.forEach(card => {
+        const title = card.querySelector('h3').innerText.toLowerCase();
+        if (title.includes(searchTerm)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
     }
   </script>
 </body>

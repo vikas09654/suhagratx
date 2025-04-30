@@ -35,9 +35,9 @@
             flex-grow: 1; /* Make logo take up available space */
         }
 
-        .logo img {
-            width: 60px; /* Even bigger logo */
-            height: 60px; /* Even bigger logo */
+        .logo i { /* Style for the Font Awesome icon */
+            font-size: 60px; /* Same size as the image was */
+            color: #e91e63;
         }
 
         .logo h1 {
@@ -297,8 +297,7 @@
     <div class="container">
         <div class="header-container">
             <div class="logo">
-                <img src="solid-icon-for-pussy-vector.jpg" alt="logo">
-                <h1>XXXVAULT</h1>
+                <i class="fas fa-heart"></i> <h1>XXXVAULT</h1>
             </div>
             <div class="top-buttons">
                 <button onclick="toggleForm('login')">Login</button>

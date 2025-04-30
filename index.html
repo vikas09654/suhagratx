@@ -1,36 +1,336 @@
-<!-- ...head and style same as before... -->
-<body style="overflow: hidden;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adult Video Site</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    body {
+      background-color: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* lock scroll initially */
+    }
+
+    .container {
+      padding: 16px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .form-container {
+      display: none;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .form-container.active {
+      display: block;
+    }
+
+    .form-container h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-container input,
+    .form-container button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .form-container input {
+      border: 1px solid #ccc;
+      background-color: #333;
+      color: white;
+    }
+
+    .form-container button {
+      background-color: #e91e63;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    .search-bar {
+      display: flex;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .search-bar input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 5px 0 0 5px;
+      font-size: 16px;
+    }
+
+    .search-bar button {
+      padding: 10px 15px;
+      background-color: #e91e63;
+      border: none;
+      color: white;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .categories {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .categories button {
+      padding: 10px 15px;
+      background-color: #333;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .categories button.active {
+      background-color: #e91e63;
+    }
+
+    .video-section {
+      display: none;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .video-section.active {
+      display: flex;
+    }
+
+    .video-card {
+      background-color: #222;
+      padding: 10px;
+      border-radius: 8px;
+      flex: 1 1 100%;
+    }
+
+    @media (min-width: 600px) {
+      .video-card {
+        flex: 1 1 48%;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .video-card {
+        flex: 1 1 30%;
+      }
+    }
+
+    .video-card h3 {
+      margin-top: 0;
+      font-size: 16px;
+    }
+
+    .video-card p {
+      font-size: 14px;
+    }
+
+    .age-verification {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .age-verification .modal-content {
+      background-color: #222;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .age-verification h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .age-verification p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .age-verification .age-sign {
+      font-size: 48px;
+      color: #e91e63;
+      margin-bottom: 20px;
+    }
+
+    .age-verification button {
+      width: 100%;
+      padding: 10px;
+      background-color: #e91e63;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
   <!-- Age Verification Modal -->
   <div id="ageVerification" class="age-verification">
     <div class="modal-content">
       <h2>Age Verification</h2>
       <div class="age-sign">18+</div>
-      <p>Welcome to XXXVAULT. You must be 18 years or older to access adult content. By clicking "Yes", you confirm that you are of legal age. Click "No" to leave this website.</p>
+      <p>You must be 18+ to enter. By clicking "Yes", you confirm you're of legal age.</p>
       <button onclick="verifyAge(true)">Yes, I am 18+</button>
       <button onclick="verifyAge(false)">No, I am under 18</button>
     </div>
   </div>
 
   <div class="container">
-    <!-- rest of your page continues here... -->
+    <!-- Login/Signup Buttons -->
+    <div style="display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 20px;">
+      <button onclick="toggleForm('login')">Login</button>
+      <button onclick="toggleForm('signup')">Signup</button>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search videos..." oninput="filterVideos()"/>
+      <button><i class="fas fa-search"></i></button>
+    </div>
+
+    <!-- Categories -->
+    <div class="categories">
+      <button onclick="showCategory('desi')" class="active">Desi Homemade</button>
+      <button onclick="showCategory('bhabhi')">Bhabhi Special</button>
+      <button onclick="showCategory('bigtits')">Big Tits</button>
+      <button onclick="showCategory('bigass')">Big Ass</button>
+      <button onclick="showCategory('brunette')">Brunette</button>
+      <button onclick="showCategory('cumshot')">Cumshot</button>
+      <button onclick="showCategory('asian')">Asian</button>
+      <button onclick="showCategory('teen')">Teen</button>
+      <button onclick="showCategory('blowjob')">Blowjob</button>
+      <button onclick="showCategory('young')">Young</button>
+      <button onclick="showCategory('wife')">Wife</button>
+      <button onclick="showCategory('sport')">Sport</button>
+      <button onclick="showCategory('milf')">Milf</button>
+      <button onclick="showCategory('stepsister')">Stepsister</button>
+    </div>
+
+    <!-- Video Sections -->
+    <div id="desi" class="video-section active">
+      <div class="video-card">
+        <h3>Desi Homemade Video 1</h3>
+        <p>Description here...</p>
+      </div>
+      <div class="video-card">
+        <h3>Desi Homemade Video 2</h3>
+        <p>Description here...</p>
+      </div>
+    </div>
+
+    <div id="bhabhi" class="video-section">
+      <div class="video-card">
+        <h3>Bhabhi Special Video 1</h3>
+        <p>Description here...</p>
+      </div>
+    </div>
   </div>
 
-  <!-- Login/Signup Forms -->
-  <!-- ... -->
+  <!-- Login Form -->
+  <div id="loginForm" class="form-container">
+    <h2>Login</h2>
+    <form>
+      <input type="text" placeholder="Username" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <!-- Signup Form -->
+  <div id="signupForm" class="form-container">
+    <h2>Signup</h2>
+    <form>
+      <input type="text" placeholder="Username" required />
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Signup</button>
+    </form>
+  </div>
 
   <script>
-    // Age Verification Function (FIXED)
     function verifyAge(isAdult) {
       const modal = document.getElementById('ageVerification');
       if (isAdult) {
         modal.style.display = 'none';
-        document.body.style.overflow = 'auto'; // Allow scrolling again
+        document.body.style.overflow = 'auto'; // Allow scroll again
       } else {
-        alert("You must be 18 or older to access this site.");
+        alert("You must be 18+ to enter.");
         window.location.href = "https://www.google.com";
       }
     }
 
-    // Other functions same as before...
+    function toggleForm(formType) {
+      const loginForm = document.getElementById('loginForm');
+      const signupForm = document.getElementById('signupForm');
+      loginForm.classList.remove('active');
+      signupForm.classList.remove('active');
+
+      if (formType === 'login') {
+        loginForm.classList.add('active');
+      } else {
+        signupForm.classList.add('active');
+      }
+    }
+
+    function showCategory(categoryId) {
+      const sections = document.querySelectorAll('.video-section');
+      const buttons = document.querySelectorAll('.categories button');
+
+      sections.forEach(section => section.classList.remove('active'));
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      document.getElementById(categoryId).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    function filterVideos() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const videoCards = document.querySelectorAll('.video-card');
+
+      videoCards.forEach(card => {
+        const title = card.querySelector('h3').innerText.toLowerCase();
+        card.style.display = title.includes(searchTerm) ? 'block' : 'none';
+      });
+    }
   </script>
 </body>
+</html>

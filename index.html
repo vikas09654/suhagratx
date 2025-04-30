@@ -170,8 +170,24 @@
       padding: 20px;
       border-radius: 10px;
       text-align: center;
-      max-width: 400px;
+      max-width: 600px;
       width: 100%;
+    }
+
+    .age-verification h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .age-verification p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .age-verification .age-sign {
+      font-size: 48px;
+      color: #e91e63;
+      margin-bottom: 20px;
     }
 
     .age-verification input {
@@ -201,9 +217,10 @@
   <div id="ageVerification" class="age-verification">
     <div class="modal-content">
       <h2>Age Verification</h2>
-      <p>Are you 18 years or older?</p>
-      <button onclick="verifyAge(true)">Yes</button>
-      <button onclick="verifyAge(false)">No</button>
+      <div class="age-sign">18+</div>
+      <p>Welcome to our website. You must be 18 years or older to access adult content. By clicking "Yes", you confirm that you are of legal age to view adult material in your jurisdiction. If you are under 18, please click "No" to leave this website.</p>
+      <button onclick="verifyAge(true)">Yes, I am 18+</button>
+      <button onclick="verifyAge(false)">No, I am under 18</button>
     </div>
   </div>
 
@@ -281,4 +298,61 @@
 
   <script>
     // Age Verification Function
-    function verifyAge(is
+    function verifyAge(isAdult) {
+      const modal = document.getElementById('ageVerification');
+      if (isAdult) {
+        modal.style.display = 'none';
+      } else {
+        alert("You must be 18 or older to access this site.");
+        window.location.href = "https://www.google.com"; // Redirect to Google if under 18
+      }
+    }
+
+    // Toggle Login/Signup Forms
+    function toggleForm(formType) {
+      const loginForm = document.getElementById('loginForm');
+      const signupForm = document.getElementById('signupForm');
+
+      if (formType === 'login') {
+        loginForm.classList.add('active');
+        signupForm.classList.remove('active');
+      } else if (formType === 'signup') {
+        signupForm.classList.add('active');
+        loginForm.classList.remove('active');
+      }
+    }
+
+    // Show category section
+    function showCategory(categoryId) {
+      const sections = document.querySelectorAll('.video-section');
+      const buttons = document.querySelectorAll('.categories button');
+
+      sections.forEach(section => {
+        section.classList.remove('active');
+      });
+
+      buttons.forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      document.getElementById(categoryId).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // Filter videos based on search input
+    function filterVideos() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const videoCards = document.querySelectorAll('.video-card');
+
+      videoCards.forEach(card => {
+        const title = card.querySelector('h3').innerText.toLowerCase();
+        if (title.includes(searchTerm)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

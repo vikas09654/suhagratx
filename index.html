@@ -3,196 +3,171 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Adult Video Website</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>Adult Video Site</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
     body {
-      background-color: #000;
-      color: #fff;
+      background-color: #111;
+      color: white;
       font-family: Arial, sans-serif;
       margin: 0;
-      padding: 20px;
+      padding: 0;
     }
 
-    /* Search bar */
-    .search-container {
+    .container {
+      padding: 16px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .search-bar {
       display: flex;
-      align-items: center;
-      background-color: #111;
-      border-radius: 5px;
-      padding: 5px 10px;
       margin-bottom: 20px;
       width: 100%;
-      max-width: 400px;
     }
 
-    .search-container input[type="text"] {
+    .search-bar input {
       flex: 1;
       padding: 10px;
       border: none;
-      background: none;
-      color: #fff;
-      font-size: 1em;
+      border-radius: 5px 0 0 5px;
+      font-size: 16px;
     }
 
-    .search-container button {
-      background: none;
+    .search-bar button {
+      padding: 10px 15px;
+      background-color: #e91e63;
       border: none;
+      color: white;
+      border-radius: 0 5px 5px 0;
       cursor: pointer;
-      color: #0ff;
-      font-size: 1.2em;
+      font-size: 18px;
     }
 
-    /* Categories */
-    .category-navigation {
+    .categories {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+      overflow-x: auto;
       gap: 10px;
       margin-bottom: 20px;
     }
 
-    .category-button {
-      background-color: #222;
-      color: #fff;
-      border: none;
+    .categories button {
       padding: 10px 15px;
+      background-color: #333;
+      border: none;
+      color: white;
       border-radius: 5px;
       cursor: pointer;
-      font-size: 1em;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
-    .category-button.active {
-      background-color: #0ff;
-      color: #000;
+    .categories button.active {
+      background-color: #e91e63;
     }
 
-    /* Video sections */
     .video-section {
       display: none;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      max-width: 1200px;
-      margin-top: 30px;
+      flex-wrap: wrap;
+      gap: 16px;
     }
 
     .video-section.active {
       display: flex;
     }
 
-    /* Placeholder for video cards */
     .video-card {
-      width: 100%;
-      max-width: 600px;
-      margin: 10px 0;
-      background: #111;
+      background-color: #222;
       padding: 10px;
-      border-radius: 5px;
+      border-radius: 8px;
+      flex: 1 1 100%;
+    }
+
+    @media (min-width: 600px) {
+      .video-card {
+        flex: 1 1 48%;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .video-card {
+        flex: 1 1 30%;
+      }
+    }
+
+    .video-card h3 {
+      margin-top: 0;
+      font-size: 16px;
+    }
+
+    .video-card p {
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <div class="search-bar">
+      <input type="text" placeholder="Search videos..." />
+      <button><i class="fas fa-search"></i></button>
+    </div>
 
-  <!-- Search Bar -->
-  <div class="search-container">
-    <input type="text" placeholder="Search..." />
-    <button type="submit"><i class="fa fa-search"></i></button>
+    <div class="categories">
+      <button onclick="showCategory('desi')" class="active">Desi Homemade</button>
+      <button onclick="showCategory('bhabhi')">Bhabhi Special</button>
+      <button onclick="showCategory('bigtits')">Big Tits</button>
+      <button onclick="showCategory('bigass')">Big Ass</button>
+      <button onclick="showCategory('brunette')">Brunette</button>
+      <button onclick="showCategory('cumshot')">Cumshot</button>
+      <button onclick="showCategory('asian')">Asian</button>
+      <button onclick="showCategory('teen')">Teen</button>
+      <button onclick="showCategory('blowjob')">Blowjob</button>
+      <button onclick="showCategory('young')">Young</button>
+      <button onclick="showCategory('wife')">Wife</button>
+      <button onclick="showCategory('sport')">Sport</button>
+      <button onclick="showCategory('milf')">Milf</button>
+      <button onclick="showCategory('stepsister')">Stepsister</button>
+    </div>
+
+    <!-- Example Sections -->
+    <div id="desi" class="video-section active">
+      <div class="video-card">
+        <h3>Desi Homemade Video 1</h3>
+        <p>Description here...</p>
+      </div>
+      <div class="video-card">
+        <h3>Desi Homemade Video 2</h3>
+        <p>Description here...</p>
+      </div>
+    </div>
+
+    <div id="bhabhi" class="video-section">
+      <div class="video-card">
+        <h3>Bhabhi Special Video 1</h3>
+        <p>Description here...</p>
+      </div>
+    </div>
+
+    <!-- Add more categories the same way -->
   </div>
 
-  <!-- Categories -->
-  <nav class="category-navigation">
-    <button class="category-button active" onclick="showCategory('desi')">Desi Homemade</button>
-    <button class="category-button" onclick="showCategory('bhabhi')">Bhabhi Special</button>
-    <button class="category-button" onclick="showCategory('big-tits')">Big Tits</button>
-    <button class="category-button" onclick="showCategory('big-ass')">Big Ass</button>
-    <button class="category-button" onclick="showCategory('brunette')">Brunette</button>
-    <button class="category-button" onclick="showCategory('cumshot')">Cumshot</button>
-    <button class="category-button" onclick="showCategory('asian')">Asian</button>
-    <button class="category-button" onclick="showCategory('teen')">Teen</button>
-    <button class="category-button" onclick="showCategory('blowjob')">Blowjob</button>
-    <button class="category-button" onclick="showCategory('young')">Young</button>
-    <button class="category-button" onclick="showCategory('wife')">Wife</button>
-    <button class="category-button" onclick="showCategory('sport')">Sport</button>
-    <button class="category-button" onclick="showCategory('milf')">MILF</button>
-    <button class="category-button" onclick="showCategory('stepsister')">Stepsister</button>
-  </nav>
-
-  <!-- Video Sections -->
-  <section id="desi" class="video-section active">
-    <div class="video-card">Desi Homemade Video 1</div>
-    <div class="video-card">Desi Homemade Video 2</div>
-  </section>
-
-  <section id="bhabhi" class="video-section">
-    <div class="video-card">Bhabhi Special Video 1</div>
-    <div class="video-card">Bhabhi Special Video 2</div>
-  </section>
-
-  <section id="big-tits" class="video-section">
-    <div class="video-card">Big Tits Video</div>
-  </section>
-
-  <section id="big-ass" class="video-section">
-    <div class="video-card">Big Ass Video</div>
-  </section>
-
-  <section id="brunette" class="video-section">
-    <div class="video-card">Brunette Video</div>
-  </section>
-
-  <section id="cumshot" class="video-section">
-    <div class="video-card">Cumshot Video</div>
-  </section>
-
-  <section id="asian" class="video-section">
-    <div class="video-card">Asian Video</div>
-  </section>
-
-  <section id="teen" class="video-section">
-    <div class="video-card">Teen Video</div>
-  </section>
-
-  <section id="blowjob" class="video-section">
-    <div class="video-card">Blowjob Video</div>
-  </section>
-
-  <section id="young" class="video-section">
-    <div class="video-card">Young Video</div>
-  </section>
-
-  <section id="wife" class="video-section">
-    <div class="video-card">Wife Video</div>
-  </section>
-
-  <section id="sport" class="video-section">
-    <div class="video-card">Sport Video</div>
-  </section>
-
-  <section id="milf" class="video-section">
-    <div class="video-card">MILF Video</div>
-  </section>
-
-  <section id="stepsister" class="video-section">
-    <div class="video-card">Stepsister Video</div>
-  </section>
-
-  <!-- JavaScript -->
   <script>
     function showCategory(categoryId) {
       const sections = document.querySelectorAll('.video-section');
-      sections.forEach(section => section.classList.remove('active'));
+      const buttons = document.querySelectorAll('.categories button');
 
-      const buttons = document.querySelectorAll('.category-button');
-      buttons.forEach(btn => btn.classList.remove('active'));
+      sections.forEach(section => {
+        section.classList.remove('active');
+      });
+
+      buttons.forEach(btn => {
+        btn.classList.remove('active');
+      });
 
       document.getElementById(categoryId).classList.add('active');
-
-      const activeBtn = Array.from(buttons).find(btn => btn.textContent.toLowerCase().replace(/\s+/g, '-').includes(categoryId));
-      if (activeBtn) {
-        activeBtn.classList.add('active');
-      }
+      event.target.classList.add('active');
     }
   </script>
-
 </body>
 </html>

@@ -1,230 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Indian Video Hub</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #111;
-            color: white;
-        }
-        header {
-            background-color: #e91e63;
-            padding: 20px;
-            text-align: center;
-            font-size: 32px;
-            font-weight: bold;
-        }
-        .category-section {
-            padding: 20px;
-        }
-        .category-title {
-            font-size: 24px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #444;
-            padding-bottom: 5px;
-        }
-        .video-card {
-            background-color: #222;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0;
-        }
-        .form-container {
-            display: none;
-            flex-direction: column;
-            gap: 15px;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #222;
-            padding: 20px;
-            border-radius: 10px;
-            z-index: 1000;
-            width: 90%;
-            max-width: 400px;
-        }
-        .form-container.active {
-            display: flex;
-        }
-        .form-container input,
-        .form-container select,
-        .form-container button {
-            padding: 15px;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
-        }
-        .form-container input,
-        .form-container select {
-            background-color: #333;
-            color: white;
-        }
-        .form-container button {
-            background-color: #e91e63;
-            color: white;
-            cursor: pointer;
-        }
-        .close-button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            float: right;
-        }
-        .upload-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #e91e63;
-            color: white;
-            border: none;
-            padding: 15px 20px;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 999;
-        }
-        video {
-            width: 100%;
-            margin-top: 10px;
-            border-radius: 8px;
-        }
-    </style>
+    <!-- Your existing head content remains exactly the same -->
+    <!-- ... -->
 </head>
 <body>
+    <!-- Your existing age verification remains the same -->
+    <div id="ageVerification" class="age-verification">
+        <!-- ... -->
+    </div>
 
-<header>📺 Indian Video Hub</header>
+    <div class="container">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-heart"></i> <h1>XXXVAULT</h1>
+            </div>
+            <div class="top-buttons">
+                <button onclick="toggleForm('login')">Login</button>
+                <button onclick="toggleForm('signup')">Signup</button>
+                <!-- NEW UPLOAD BUTTON -->
+                <button onclick="toggleForm('upload')"><i class="fas fa-upload"></i> Upload</button>
+            </div>
+        </div>
 
-<!-- Upload Video Button -->
-<button onclick="toggleUploadForm()" class="upload-btn">⬆️</button>
+        <!-- Rest of your existing content remains the same -->
+        <!-- ... -->
 
-<!-- Upload Video Modal -->
-<div id="uploadForm" class="form-container">
-    <h2>Upload Video <button type="button" class="close-button" onclick="closeForm(event, 'upload')">&times;</button></h2>
-    <form onsubmit="handleVideoUpload(event)">
-        <input type="text" id="videoTitle" placeholder="Video Title" required />
-        <input type="text" id="videoDescription" placeholder="Description (optional)" />
-        <select id="videoCategory" required>
-            <option value="" disabled selected>Select Category</option>
-            <option value="desi">Desi Homemade</option>
-            <option value="bhabhi">Bhabhi Special</option>
-            <option value="bigtits">Big Tits</option>
-            <option value="bigass">Big Ass</option>
-            <option value="brunette">Brunette</option>
-            <option value="cumshot">Cumshot</option>
-            <option value="asian">Asian</option>
-            <option value="teen">Teen</option>
-            <option value="blowjob">Blowjob</option>
-            <option value="young">Young</option>
-            <option value="wife">Wife</option>
-            <option value="sport">Sport</option>
-            <option value="milf">Milf</option>
-            <option value="stepsister">Stepsister</option>
-        </select>
-        <input type="file" id="videoFile" accept="video/*" required />
-        <button type="submit">Upload</button>
-    </form>
-</div>
+    </div>
 
-<!-- Category Sections -->
-<div class="category-section" id="desi">
-    <div class="category-title">Desi Homemade</div>
-</div>
-<div class="category-section" id="bhabhi">
-    <div class="category-title">Bhabhi Special</div>
-</div>
-<div class="category-section" id="bigtits">
-    <div class="category-title">Big Tits</div>
-</div>
-<div class="category-section" id="bigass">
-    <div class="category-title">Big Ass</div>
-</div>
-<div class="category-section" id="brunette">
-    <div class="category-title">Brunette</div>
-</div>
-<div class="category-section" id="cumshot">
-    <div class="category-title">Cumshot</div>
-</div>
-<div class="category-section" id="asian">
-    <div class="category-title">Asian</div>
-</div>
-<div class="category-section" id="teen">
-    <div class="category-title">Teen</div>
-</div>
-<div class="category-section" id="blowjob">
-    <div class="category-title">Blowjob</div>
-</div>
-<div class="category-section" id="young">
-    <div class="category-title">Young</div>
-</div>
-<div class="category-section" id="wife">
-    <div class="category-title">Wife</div>
-</div>
-<div class="category-section" id="sport">
-    <div class="category-title">Sport</div>
-</div>
-<div class="category-section" id="milf">
-    <div class="category-title">Milf</div>
-</div>
-<div class="category-section" id="stepsister">
-    <div class="category-title">Stepsister</div>
-</div>
+    <!-- Your existing login and signup forms remain the same -->
+    <div id="loginForm" class="form-container">
+        <!-- ... -->
+    </div>
 
-<!-- JS Script -->
-<script>
-function toggleUploadForm() {
-    document.getElementById('uploadForm').classList.add('active');
-}
+    <div id="signupForm" class="form-container">
+        <!-- ... -->
+    </div>
 
-function closeForm(event, formType) {
-    document.getElementById('uploadForm').classList.remove('active');
-}
+    <!-- NEW UPLOAD FORM -->
+    <div id="uploadForm" class="form-container">
+        <h2>Upload Video <button type="button" class="close-button" onclick="closeForm(event, 'upload')">&times;</button></h2>
+        <form id="videoUploadForm">
+            <input type="text" id="videoTitle" placeholder="Video Title" required />
+            <input type="text" id="videoDescription" placeholder="Description" required />
+            <input type="text" id="videoUrl" placeholder="Video URL" required />
+            
+            <select id="videoCategory" required style="width: 100%; padding: 15px; margin: 15px 0; background-color: #333; color: white; border: none; border-radius: 8px; font-size: 18px;">
+                <option value="">Select Category</option>
+                <option value="desi">Desi Homemade</option>
+                <option value="bhabhi">Bhabhi Special</option>
+                <option value="bigtits">Big Tits</option>
+                <option value="bigass">Big Ass</option>
+                <option value="brunette">Brunette</option>
+                <option value="cumshot">Cumshot</option>
+                <option value="asian">Asian</option>
+                <option value="teen">Teen</option>
+                <option value="blowjob">Blowjob</option>
+                <option value="young">Young</option>
+                <option value="wife">Wife</option>
+                <option value="sport">Sport</option>
+                <option value="milf">Milf</option>
+                <option value="stepsister">Stepsister</option>
+                <option value="homepage">Show on Homepage</option>
+            </select>
+            
+            <button type="submit">Upload Video</button>
+        </form>
+    </div>
 
-function handleVideoUpload(event) {
-    event.preventDefault();
-
-    const title = document.getElementById('videoTitle').value;
-    const desc = document.getElementById('videoDescription').value;
-    const category = document.getElementById('videoCategory').value;
-    const fileInput = document.getElementById('videoFile');
-    const file = fileInput.files[0];
-
-    if (!file) {
-        alert('Please select a video file.');
-        return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const videoSection = document.getElementById(category);
-        const videoCard = document.createElement('div');
-        videoCard.classList.add('video-card');
-        videoCard.innerHTML = `
-            <h3>${title}</h3>
-            <p>${desc}</p>
-            <video controls>
-                <source src="${e.target.result}" type="${file.type}">
-                Your browser does not support the video tag.
-            </video>
-        `;
-        if (videoSection) {
-            videoSection.appendChild(videoCard);
-        } else {
-            alert('Category not found!');
+    <script>
+        // Your existing JavaScript functions remain exactly the same
+        // Age Verification
+        function verifyAge(isAdult) {
+            if (isAdult) {
+                document.getElementById('ageVerification').style.display = 'none';
+            } else {
+                window.location.href = "https://www.google.com";
+            }
         }
 
-        document.getElementById('uploadForm').classList.remove('active');
-        event.target.reset();
-    };
+        // Show Login/Signup/Upload
+        function toggleForm(formType) {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const uploadForm = document.getElementById('uploadForm');
+            
+            loginForm.classList.remove('active');
+            signupForm.classList.remove('active');
+            uploadForm.classList.remove('active');
+            
+            if (formType === 'login' || formType === 'signup' || formType === 'upload') {
+                document.getElementById(formType + 'Form').classList.add('active');
+            }
+        }
 
-    reader.readAsDataURL(file);
-}
-</script>
+        // Close form
+        function closeForm(event, formType) {
+            event.stopPropagation();
+            document.getElementById(formType + 'Form').classList.remove('active');
+        }
 
+        // Switch Category
+        function showCategory(categoryId) {
+            document.querySelectorAll('.video-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.categories button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(categoryId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Filter Videos
+        function filterVideos() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            document.querySelectorAll('.video-card').forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                card.style.display = title.includes(search) ? 'block' : 'none';
+            });
+        }
+
+        // NEW FUNCTION: Handle video upload
+        document.getElementById('videoUploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('videoTitle').value;
+            const description = document.getElementById('videoDescription').value;
+            const url = document.getElementById('videoUrl').value;
+            const category = document.getElementById('videoCategory').value;
+            
+            if (category === 'homepage') {
+                // Add to homepage (desi category in your case)
+                addVideoToCategory('desi', title, description, url);
+            } else if (category) {
+                // Add to selected category
+                addVideoToCategory(category, title, description, url);
+            }
+            
+            // Reset form
+            this.reset();
+            // Close form
+            document.getElementById('uploadForm').classList.remove('active');
+            
+            alert('Video uploaded successfully!');
+        });
+
+        // NEW FUNCTION: Add video to category section
+        function addVideoToCategory(categoryId, title, description, url) {
+            const categorySection = document.getElementById(categoryId);
+            
+            if (categorySection) {
+                const videoCard = document.createElement('div');
+                videoCard.className = 'video-card';
+                videoCard.innerHTML = `
+                    <h3>${title}</h3>
+                    <p>${description}</p>
+                    <p><a href="${url}" target="_blank" style="color: #e91e63;">Watch Video</a></p>
+                `;
+                
+                categorySection.appendChild(videoCard);
+            }
+        }
+    </script>
 </body>
 </html>

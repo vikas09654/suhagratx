@@ -1,13 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Your existing head content remains exactly the same -->
-    <!-- ... -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>XXXVault</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        body {
+            background-color: #111;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding: 16px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        /* Logo and Buttons Container */
+        .header-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        /* Logo */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-grow: 1;
+        }
+
+        .logo i {
+            font-size: 60px;
+            color: #e91e63;
+        }
+
+        .logo h1 {
+            font-size: 48px;
+            font-weight: bold;
+            letter-spacing: 5px;
+            margin: 0;
+            text-shadow: 2px 2px #e91e63;
+        }
+
+        /* Buttons */
+        .top-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .top-buttons button {
+            background-color: #e91e63;
+            border: 2px solid #e91e63;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .top-buttons button:hover {
+            background-color: #c8104a;
+            border-color: #c8104a;
+        }
+
+        .form-container {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.95);
+            padding: 30px;
+            border-radius: 12px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 95%;
+            width: 450px;
+            z-index: 1001;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-container.active {
+            display: block;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #e91e63;
+            position: relative;
+        }
+
+        .form-container .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            color: #bbb;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .form-container .close-button:hover {
+            color: white;
+        }
+
+        .form-container input, .form-container select {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #333;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        .form-container button[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container button[type="submit"]:hover {
+            background-color: #c8104a;
+        }
+
+        .search-bar {
+            display: flex;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #333;
+            border-radius: 8px 0 0 8px;
+            font-size: 18px;
+            background-color: #222;
+            color: white;
+        }
+
+        .search-bar button {
+            background-color: #e91e63;
+            padding: 15px 20px;
+            border: none;
+            color: white;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background-color: #c8104a;
+        }
+
+        .categories {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .categories button {
+            padding: 12px 20px;
+            background-color: #333;
+            border: 2px solid #333;
+            color: white;
+            border-radius: 8px;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .categories button.active {
+            background-color: #e91e63;
+            border-color: #e91e63;
+            color: white;
+        }
+
+        .categories button:hover:not(.active) {
+            background-color: #555;
+            border-color: #555;
+        }
+
+        .video-section {
+            display: none;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .video-section.active {
+            display: flex;
+        }
+
+        .video-card {
+            background-color: #222;
+            padding: 15px;
+            border-radius: 10px;
+            flex: 1 1 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-card h3 {
+            font-size: 20px;
+            margin: 0 0 10px;
+        }
+
+        .video-card p {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .video-card a {
+            color: #e91e63;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .video-card a:hover {
+            text-decoration: underline;
+        }
+
+        @media (min-width: 600px) {
+            .video-card {
+                flex: 1 1 48%;
+            }
+        }
+
+        @media (min-width: 900px) {
+            .video-card {
+                flex: 1 1 30%;
+            }
+        }
+
+        /* Age Modal */
+        .age-verification {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.98);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .age-verification .modal-content {
+            background-color: #222;
+            padding: 35px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 95%;
+            width: 500px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .age-verification .age-sign {
+            font-size: 72px;
+            color: #e91e63;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px #c8104a;
+        }
+
+        .age-verification h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #e91e63;
+        }
+
+        .age-verification p {
+            font-size: 20px;
+            margin-bottom: 25px;
+        }
+
+        .age-verification button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #e91e63;
+            border: none;
+            color: white;
+            font-size: 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .age-verification button:hover {
+            background-color: #c8104a;
+        }
+    </style>
 </head>
 <body>
-    <!-- Your existing age verification remains the same -->
     <div id="ageVerification" class="age-verification">
-        <!-- ... -->
+        <div class="modal-content">
+            <h2>Age Verification</h2>
+            <div class="age-sign">18+</div>
+            <p>You must be 18+ to enter. Click "Yes" if you are of legal age, or "No" to leave.</p>
+            <button onclick="verifyAge(true)">Yes, I am 18+</button>
+            <button onclick="verifyAge(false)">No, I am under 18</button>
+        </div>
     </div>
 
     <div class="container">
@@ -18,26 +331,121 @@
             <div class="top-buttons">
                 <button onclick="toggleForm('login')">Login</button>
                 <button onclick="toggleForm('signup')">Signup</button>
-                <!-- NEW UPLOAD BUTTON -->
                 <button onclick="toggleForm('upload')"><i class="fas fa-upload"></i> Upload</button>
             </div>
         </div>
 
-        <!-- Rest of your existing content remains the same -->
-        <!-- ... -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search videos..." oninput="filterVideos()" />
+            <button><i class="fas fa-search"></i></button>
+        </div>
 
+        <div class="categories">
+            <button onclick="showCategory('desi')" class="active">Desi Homemade</button>
+            <button onclick="showCategory('bhabhi')">Bhabhi Special</button>
+            <button onclick="showCategory('bigtits')">Big Tits</button>
+            <button onclick="showCategory('bigass')">Big Ass</button>
+            <button onclick="showCategory('brunette')">Brunette</button>
+            <button onclick="showCategory('cumshot')">Cumshot</button>
+            <button onclick="showCategory('asian')">Asian</button>
+            <button onclick="showCategory('teen')">Teen</button>
+            <button onclick="showCategory('blowjob')">Blowjob</button>
+            <button onclick="showCategory('young')">Young</button>
+            <button onclick="showCategory('wife')">Wife</button>
+            <button onclick="showCategory('sport')">Sport</button>
+            <button onclick="showCategory('milf')">Milf</button>
+            <button onclick="showCategory('stepsister')">Stepsister</button>
+        </div>
+
+        <div id="desi" class="video-section active">
+            <div class="video-card">
+                <h3>Desi Video 1</h3>
+                <p>Hot desi couple homemade video</p>
+                <p><a href="#" target="_blank">Watch Video</a></p>
+            </div>
+            <div class="video-card">
+                <h3>Desi Video 2</h3>
+                <p>Desi girl showing her skills</p>
+                <p><a href="#" target="_blank">Watch Video</a></p>
+            </div>
+        </div>
+
+        <div id="bhabhi" class="video-section">
+            <div class="video-card">
+                <h3>Bhabhi Video</h3>
+                <p>Bhabhi special night</p>
+                <p><a href="#" target="_blank">Watch Video</a></p>
+            </div>
+        </div>
+
+        <div id="bigtits" class="video-section">
+            <!-- Videos will appear here when uploaded -->
+        </div>
+
+        <div id="bigass" class="video-section">
+            <!-- Videos will appear here when uploaded -->
+        </div>
+
+        <div id="brunette" class="video-section">
+            <!-- Videos will appear here when uploaded -->
+        </div>
+
+        <div id="cumshot" class="video-section">
+            <!-- Videos will appear here when uploaded -->
+        </div>
+
+        <div id="asian" class="video-section">
+            <!-- Videos will appear here when uploaded -->
+        </div>
+
+        <div id="teen" class="video-section">
+            <!-- Videos will appear here when uploaded -->
+        </div>
+
+        <div id="blowjob" class="video-section">
+            <!-- Videos will appear here when uploaded -->
+        </div>
+
+        <div id="young" class="video-section">
+            <!-- Videos will appear here when uploaded -->
+        </div>
+
+        <div id="wife" class="video-section">
+            <!-- Videos will appear here when uploaded -->
+        </div>
+
+        <div id="sport" class="video-section">
+            <!-- Videos will appear here when uploaded -->
+        </div>
+
+        <div id="milf" class="video-section">
+            <!-- Videos will appear here when uploaded -->
+        </div>
+
+        <div id="stepsister" class="video-section">
+            <!-- Videos will appear here when uploaded -->
+        </div>
     </div>
 
-    <!-- Your existing login and signup forms remain the same -->
     <div id="loginForm" class="form-container">
-        <!-- ... -->
+        <h2>Login <button type="button" class="close-button" onclick="closeForm(event, 'login')">&times;</button></h2>
+        <form>
+            <input type="text" placeholder="Username" required />
+            <input type="password" placeholder="Password" required />
+            <button type="submit">Login</button>
+        </form>
     </div>
 
     <div id="signupForm" class="form-container">
-        <!-- ... -->
+        <h2>Signup <button type="button" class="close-button" onclick="closeForm(event, 'signup')">&times;</button></h2>
+        <form>
+            <input type="text" placeholder="Username" required />
+            <input type="email" placeholder="Email" required />
+            <input type="password" placeholder="Password" required />
+            <button type="submit">Signup</button>
+        </form>
     </div>
 
-    <!-- NEW UPLOAD FORM -->
     <div id="uploadForm" class="form-container">
         <h2>Upload Video <button type="button" class="close-button" onclick="closeForm(event, 'upload')">&times;</button></h2>
         <form id="videoUploadForm">
@@ -45,7 +453,7 @@
             <input type="text" id="videoDescription" placeholder="Description" required />
             <input type="text" id="videoUrl" placeholder="Video URL" required />
             
-            <select id="videoCategory" required style="width: 100%; padding: 15px; margin: 15px 0; background-color: #333; color: white; border: none; border-radius: 8px; font-size: 18px;">
+            <select id="videoCategory" required>
                 <option value="">Select Category</option>
                 <option value="desi">Desi Homemade</option>
                 <option value="bhabhi">Bhabhi Special</option>
@@ -69,7 +477,6 @@
     </div>
 
     <script>
-        // Your existing JavaScript functions remain exactly the same
         // Age Verification
         function verifyAge(isAdult) {
             if (isAdult) {
@@ -117,7 +524,7 @@
             });
         }
 
-        // NEW FUNCTION: Handle video upload
+        // Handle video upload
         document.getElementById('videoUploadForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -142,7 +549,7 @@
             alert('Video uploaded successfully!');
         });
 
-        // NEW FUNCTION: Add video to category section
+        // Add video to category section
         function addVideoToCategory(categoryId, title, description, url) {
             const categorySection = document.getElementById(categoryId);
             
@@ -152,7 +559,7 @@
                 videoCard.innerHTML = `
                     <h3>${title}</h3>
                     <p>${description}</p>
-                    <p><a href="${url}" target="_blank" style="color: #e91e63;">Watch Video</a></p>
+                    <p><a href="${url}" target="_blank">Watch Video</a></p>
                 `;
                 
                 categorySection.appendChild(videoCard);

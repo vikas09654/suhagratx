@@ -20,14 +20,12 @@
             margin: auto;
         }
 
-        /* Logo and Buttons Container */
         .header-container {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
         }
 
-        /* Logo */
         .logo {
             display: flex;
             align-items: center;
@@ -48,7 +46,6 @@
             text-shadow: 2px 2px #e91e63;
         }
 
-        /* Buttons */
         .top-buttons {
             display: flex;
             gap: 15px;
@@ -240,10 +237,10 @@
             text-decoration: underline;
         }
 
-        .video-player {
+        .video-card video {
             width: 100%;
-            margin-bottom: 10px;
             border-radius: 5px;
+            margin-top: 10px;
         }
 
         @media (min-width: 600px) {
@@ -256,45 +253,6 @@
             .video-card {
                 flex: 1 1 30%;
             }
-        }
-
-        /* File Upload Styles */
-        .file-input-container {
-            position: relative;
-            margin: 15px 0;
-        }
-        
-        .file-input-label {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background-color: #333;
-            color: white;
-            border-radius: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
-        .file-input-label:hover {
-            background-color: #444;
-        }
-        
-        .file-input {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
-        }
-        
-        .file-name {
-            margin-top: 5px;
-            font-size: 14px;
-            color: #bbb;
-            text-align: center;
         }
 
         /* Age Modal */
@@ -355,6 +313,45 @@
         .age-verification button:hover {
             background-color: #c8104a;
         }
+
+        /* File Upload Styles */
+        .file-input-container {
+            position: relative;
+            margin: 15px 0;
+        }
+        
+        .file-input-label {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #333;
+            color: white;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .file-input-label:hover {
+            background-color: #444;
+        }
+        
+        .file-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .file-name {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #bbb;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -403,81 +400,59 @@
         </div>
 
         <div id="desi" class="video-section active">
-            <div class="video-card">
-                <h3>Desi Video 1</h3>
-                <p>Hot desi couple homemade video</p>
-                <video controls class="video-player">
-                    <source src="#" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-            <div class="video-card">
-                <h3>Desi Video 2</h3>
-                <p>Desi girl showing her skills</p>
-                <video controls class="video-player">
-                    <source src="#" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
+            <!-- Videos will appear here automatically -->
         </div>
 
         <div id="bhabhi" class="video-section">
-            <div class="video-card">
-                <h3>Bhabhi Video</h3>
-                <p>Bhabhi special night</p>
-                <video controls class="video-player">
-                    <source src="#" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
+            <!-- Videos will appear here automatically -->
         </div>
 
         <div id="bigtits" class="video-section">
-            <!-- Videos will appear here when uploaded -->
+            <!-- Videos will appear here automatically -->
         </div>
 
         <div id="bigass" class="video-section">
-            <!-- Videos will appear here when uploaded -->
+            <!-- Videos will appear here automatically -->
         </div>
 
         <div id="brunette" class="video-section">
-            <!-- Videos will appear here when uploaded -->
+            <!-- Videos will appear here automatically -->
         </div>
 
         <div id="cumshot" class="video-section">
-            <!-- Videos will appear here when uploaded -->
+            <!-- Videos will appear here automatically -->
         </div>
 
         <div id="asian" class="video-section">
-            <!-- Videos will appear here when uploaded -->
+            <!-- Videos will appear here automatically -->
         </div>
 
         <div id="teen" class="video-section">
-            <!-- Videos will appear here when uploaded -->
+            <!-- Videos will appear here automatically -->
         </div>
 
         <div id="blowjob" class="video-section">
-            <!-- Videos will appear here when uploaded -->
+            <!-- Videos will appear here automatically -->
         </div>
 
         <div id="young" class="video-section">
-            <!-- Videos will appear here when uploaded -->
+            <!-- Videos will appear here automatically -->
         </div>
 
         <div id="wife" class="video-section">
-            <!-- Videos will appear here when uploaded -->
+            <!-- Videos will appear here automatically -->
         </div>
 
         <div id="sport" class="video-section">
-            <!-- Videos will appear here when uploaded -->
+            <!-- Videos will appear here automatically -->
         </div>
 
         <div id="milf" class="video-section">
-            <!-- Videos will appear here when uploaded -->
+            <!-- Videos will appear here automatically -->
         </div>
 
         <div id="stepsister" class="video-section">
-            <!-- Videos will appear here when uploaded -->
+            <!-- Videos will appear here automatically -->
         </div>
     </div>
 
@@ -538,15 +513,74 @@
     </div>
 
     <script>
+        // Database setup
+        let db;
+        const DB_NAME = 'XXXVaultDB';
+        const DB_VERSION = 1;
+        const STORE_NAME = 'videos';
+        
+        // Initialize database
+        function initDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+                
+                request.onerror = function(event) {
+                    console.error("Database error:", event.target.error);
+                    reject("Database error");
+                };
+                
+                request.onupgradeneeded = function(event) {
+                    db = event.target.result;
+                    if (!db.objectStoreNames.contains(STORE_NAME)) {
+                        db.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
+                    }
+                };
+                
+                request.onsuccess = function(event) {
+                    db = event.target.result;
+                    resolve(db);
+                };
+            });
+        }
+        
         // Age Verification
         function verifyAge(isAdult) {
             if (isAdult) {
                 document.getElementById('ageVerification').style.display = 'none';
+                // Initialize database after age verification
+                initDB().then(() => {
+                    loadVideos();
+                }).catch(error => {
+                    console.error("Failed to initialize DB:", error);
+                });
             } else {
                 window.location.href = "https://www.google.com";
             }
         }
-
+        
+        // Load videos from database
+        function loadVideos() {
+            const transaction = db.transaction([STORE_NAME], 'readonly');
+            const store = transaction.objectStore(STORE_NAME);
+            const request = store.getAll();
+            
+            request.onsuccess = function(event) {
+                const videos = event.target.result;
+                videos.forEach(video => {
+                    addVideoToCategory(
+                        video.category,
+                        video.title,
+                        video.description,
+                        URL.createObjectURL(video.fileData)
+                    );
+                });
+            };
+            
+            request.onerror = function(event) {
+                console.error("Error loading videos:", event.target.error);
+            };
+        }
+        
         // Show Login/Signup/Upload
         function toggleForm(formType) {
             const loginForm = document.getElementById('loginForm');
@@ -561,13 +595,13 @@
                 document.getElementById(formType + 'Form').classList.add('active');
             }
         }
-
+        
         // Close form
         function closeForm(event, formType) {
             event.stopPropagation();
             document.getElementById(formType + 'Form').classList.remove('active');
         }
-
+        
         // Switch Category
         function showCategory(categoryId) {
             document.querySelectorAll('.video-section').forEach(sec => sec.classList.remove('active'));
@@ -575,7 +609,7 @@
             document.getElementById(categoryId).classList.add('active');
             event.target.classList.add('active');
         }
-
+        
         // Filter Videos
         function filterVideos() {
             const search = document.getElementById('searchInput').value.toLowerCase();
@@ -584,13 +618,13 @@
                 card.style.display = title.includes(search) ? 'block' : 'none';
             });
         }
-
+        
         // File input handler
         document.getElementById('videoFile').addEventListener('change', function(e) {
             const fileName = e.target.files[0] ? e.target.files[0].name : 'No file selected';
             document.getElementById('fileName').textContent = fileName;
         });
-
+        
         // Handle video upload
         document.getElementById('videoUploadForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -606,23 +640,45 @@
             }
             
             const file = fileInput.files[0];
-            const videoUrl = URL.createObjectURL(file);
+            const targetCategory = category === 'homepage' ? 'desi' : category;
             
-            if (category === 'homepage') {
-                addVideoToCategory('desi', title, description, videoUrl);
-            } else if (category) {
-                addVideoToCategory(category, title, description, videoUrl);
-            }
+            // Create a transaction
+            const transaction = db.transaction([STORE_NAME], 'readwrite');
+            const store = transaction.objectStore(STORE_NAME);
             
-            // Reset form
-            this.reset();
-            document.getElementById('fileName').textContent = 'No file selected';
-            // Close form
-            document.getElementById('uploadForm').classList.remove('active');
+            // Prepare video data
+            const videoData = {
+                title: title,
+                description: description,
+                category: targetCategory,
+                fileData: file,
+                timestamp: new Date().getTime()
+            };
             
-            alert('Video uploaded successfully!');
+            // Add to database
+            const request = store.add(videoData);
+            
+            request.onsuccess = function() {
+                // Create object URL for the video
+                const videoUrl = URL.createObjectURL(file);
+                
+                // Add to UI
+                addVideoToCategory(targetCategory, title, description, videoUrl);
+                
+                // Reset form
+                document.getElementById('videoUploadForm').reset();
+                document.getElementById('fileName').textContent = 'No file selected';
+                document.getElementById('uploadForm').classList.remove('active');
+                
+                alert('Video uploaded successfully!');
+            };
+            
+            request.onerror = function(event) {
+                console.error("Error adding video:", event.target.error);
+                alert('Error uploading video. Please try again.');
+            };
         });
-
+        
         // Add video to category section
         function addVideoToCategory(categoryId, title, description, videoUrl) {
             const categorySection = document.getElementById(categoryId);
@@ -633,15 +689,22 @@
                 videoCard.innerHTML = `
                     <h3>${title}</h3>
                     <p>${description}</p>
-                    <video controls class="video-player">
+                    <video controls>
                         <source src="${videoUrl}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
+                    <p><a href="${videoUrl}" target="_blank" download="${title}.mp4">Download Video</a></p>
                 `;
                 
                 categorySection.appendChild(videoCard);
             }
         }
+        
+        // Initialize age verification on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            // Show age verification
+            document.getElementById('ageVerification').style.display = 'flex';
+        });
     </script>
 </body>
 </html>

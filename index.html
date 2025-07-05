@@ -550,6 +550,7 @@
                 // Initialize database after age verification
                 initDB().then(() => {
                     loadVideos();
+                    loadGoogleSheetVideos(); // Load videos from Google Sheet
                 }).catch(error => {
                     console.error("Failed to initialize DB:", error);
                 });
@@ -579,6 +580,40 @@
             request.onerror = function(event) {
                 console.error("Error loading videos:", event.target.error);
             };
+        }
+        
+        // Load videos from Google Sheet
+        function loadGoogleSheetVideos() {
+            const sheetURL = "https://docs.google.com/spreadsheets/d/1JeG7ZDMdFcNmvjNZQ3mKX50WeGqbNzO-qAXIfHezeAs/gviz/tq?tqx=out:json";
+
+            fetch(sheetURL)
+                .then(res => res.text())
+                .then(text => {
+                    const json = JSON.parse(text.substring(47).slice(0, -2));
+                    const rows = json.table.rows;
+
+                    rows.forEach(row => {
+                        const title = row.c[0]?.v || "";
+                        const embed = row.c[1]?.v || "";
+                        const category = row.c[2]?.v || "";
+
+                        // Add to the appropriate category section
+                        const categorySection = document.getElementById(category.toLowerCase());
+                        if (categorySection) {
+                            const videoCard = document.createElement('div');
+                            videoCard.className = 'video-card';
+                            videoCard.innerHTML = `
+                                <h3>${title}</h3>
+                                <p><strong>Category:</strong> ${category}</p>
+                                ${embed}
+                            `;
+                            categorySection.appendChild(videoCard);
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error("Error loading Google Sheet videos:", error);
+                });
         }
         
         // Show Login/Signup/Upload

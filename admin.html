@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Upload Panel - XXXVault</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: #fff;
+      padding: 20px;
+    }
+    .card {
+      background: #1f1f1f;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: auto;
+    }
+    input, select, button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+    }
+    button {
+      background: #e91e63;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>🔐 Admin Upload Panel</h2>
+
+  <div id="loginSection">
+    <input type="email" id="email" placeholder="Admin Email">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+  </div>
+
+  <div id="uploadSection" style="display:none;">
+    <input type="text" id="title" placeholder="Video Title" />
+    <input type="text" id="embed" placeholder="Embed URL (https://...)" />
+    <select id="category">
+      <option value="">Select Category</option>
+      <option value="Desi">Desi</option>
+      <option value="Teen">Teen</option>
+      <option value="MILF">MILF</option>
+      <option value="Romance">Romance</option>
+    </select>
+    <button onclick="uploadVideo()">📤 Upload Video</button>
+    <button onclick="logout()">🚪 Logout</button>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCcWNBqcYhgVzs8DIgB7D8vmDu8if-a8zo",
+    authDomain: "xxxvault-28f70.firebaseapp.com",
+    projectId: "xxxvault-28f70",
+    storageBucket: "xxxvault-28f70.firebasestorage.app",
+    messagingSenderId: "226704398059",
+    appId: "1:226704398059:web:9f02b1013f14ada73090ae"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+
+  const loginSection = document.getElementById("loginSection");
+  const uploadSection = document.getElementById("uploadSection");
+
+  onAuthStateChanged(auth, user => {
+    if (user && user.email === "vikasparmar12567@gmail.com") {
+      loginSection.style.display = "none";
+      uploadSection.style.display = "block";
+    } else {
+      loginSection.style.display = "block";
+      uploadSection.style.display = "none";
+    }
+  });
+
+  window.login = function () {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => alert("✅ Logged in"))
+      .catch(error => alert("❌ Login failed: " + error.message));
+  };
+
+  window.logout = function () {
+    signOut(auth);
+  };
+
+  window.uploadVideo = async function () {
+    const title = document.getElementById("title").value;
+    const embed = document.getElementById("embed").value;
+    const category = document.getElementById("category").value;
+
+    if (!title || !embed || !category) {
+      alert("❗ Please fill all fields.");
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, "videos"), { title, embed, category });
+      alert("✅ Video uploaded!");
+      document.getElementById("title").value = "";
+      document.getElementById("embed").value = "";
+      document.getElementById("category").value = "";
+    } catch (err) {
+      alert("❌ Upload failed: " + err.message);
+    }
+  };
+</script>
+
+</body>
+</html>

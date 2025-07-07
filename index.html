@@ -74,12 +74,20 @@
       displayVideos(allVideos);
     }
 
+    function extractEmbedUrl(embedString) {
+      const match = embedString.match(/src\s*=\s*\"([^\"]+)/);
+      return match ? match[1] : embedString;
+    }
+
     function displayVideos(videos) {
       videoListContainer.innerHTML = "";
       videos.forEach((data) => {
-        const title = data.title;
-        const embed = data.embed;
-        const category = data.category;
+        const title = data.title || "Untitled";
+        let embed = data.embed;
+        const category = data.category || "Uncategorized";
+
+        // Extract only URL if full iframe was added by mistake
+        embed = extractEmbedUrl(embed);
 
         const videoCard = `
           <div class="video-card">

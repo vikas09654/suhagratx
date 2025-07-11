@@ -19,17 +19,27 @@
       text-shadow: 0 0 10px #ff69b4;
     }
     .filter-bar {
-      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       margin: 20px auto 10px;
     }
     .filter-bar input {
       padding: 10px;
       width: 250px;
-      border-radius: 6px;
+      border-radius: 6px 0 0 6px;
       border: none;
       outline: none;
       background-color: #3d003d;
       color: #fff;
+    }
+    .filter-bar button {
+      padding: 10px;
+      border: none;
+      border-radius: 0 6px 6px 0;
+      background: #ff69b4;
+      color: white;
+      cursor: pointer;
     }
     .category-buttons {
       text-align: center;
@@ -49,13 +59,24 @@
     .category-buttons button:hover {
       background-color: #ff3399;
     }
+    .main-content {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    #videoList {
+      flex: 1;
+      max-width: 800px;
+    }
+    .sidebar {
+      width: 300px;
+    }
     .video-card {
       background: rgba(0, 0, 0, 0.6);
       padding: 16px;
       margin: 20px auto;
       border-radius: 12px;
       box-shadow: 0 0 15px #ff1493;
-      max-width: 800px;
     }
     iframe {
       width: 100%;
@@ -66,17 +87,27 @@
       margin-top: 8px;
       color: #ffb6c1;
     }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .actions button {
+      background: none;
+      border: none;
+      color: #ff69b4;
+      font-size: 1.1em;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <h1>XXXVault 🔥 Romantic Nights</h1>
-
-  <!-- Filter Bar -->
+  <script type='text/javascript' src='//pl27142167.profitableratecpm.com/df/ac/51/dfac5181ab36cdb5b07c1d5f6a293265.js'></script>
   <div class="filter-bar">
-    <input type="text" id="searchInput" placeholder="Search by title or category..." oninput="filterVideos()" />
+    <input type="text" id="searchInput" placeholder="Search by title or category..." />
+    <button id="searchBtn">🔍</button>
   </div>
-
-  <!-- Category Buttons -->
   <div class="category-buttons">
     <button onclick="filterByCategory('all')">All</button>
     <button onclick="filterByCategory('Desi')">Desi</button>
@@ -84,13 +115,16 @@
     <button onclick="filterByCategory('MILF')">MILF</button>
     <button onclick="filterByCategory('Romance')">Romance</button>
   </div>
-
-  <!-- Firebase Videos will show here -->
-  <div id="videoList"></div>
-
+  <div class="main-content">
+    <div id="videoList"></div>
+    <div class="sidebar">
+      <script async="async" data-cfasync="false" src="//pl27142234.profitableratecpm.com/83870399302cbe5357db75d3d7bbf0a7/invoke.js"></script>
+      <div id="container-83870399302cbe5357db75d3d7bbf0a7"></div>
+    </div>
+  </div>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, updateDoc, doc, increment } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCcWNBqcYhgVzs8DIgB7D8vmDu8if-a8zo",
@@ -110,35 +144,71 @@
     async function loadVideos() {
       const querySnapshot = await getDocs(collection(db, "videos"));
       allVideos = [];
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        allVideos.push(data);
+      querySnapshot.forEach((docSnap, index) => {
+        const data = docSnap.data();
+        allVideos.push({ id: docSnap.id, ...data });
       });
       displayVideos(allVideos);
     }
 
     function extractEmbedUrl(embedString) {
-      const match = embedString.match(/src\s*=\s*\"([^\"]+)/);
+      const match = embedString.match(/src\s*=\s*"([^\"]+)/);
       return match ? match[1] : embedString;
+    }
+
+    async function incrementView(id) {
+      const ref = doc(db, "videos", id);
+      await updateDoc(ref, { views: increment(1) });
+    }
+
+    async function incrementLike(id) {
+      const ref = doc(db, "videos", id);
+      await updateDoc(ref, { likes: increment(1) });
+      loadVideos();
     }
 
     function displayVideos(videos) {
       videoListContainer.innerHTML = "";
-      videos.forEach((data) => {
+      videos.forEach((data, index) => {
         const title = data.title || "Untitled";
         let embed = data.embed;
         const category = data.category || "Uncategorized";
+        const views = data.views || 0;
+        const likes = data.likes || 0;
 
         embed = extractEmbedUrl(embed);
+        const iframeId = `video-${data.id}`;
 
         const videoCard = `
           <div class="video-card">
             <h3>${title}</h3>
-            <iframe width="100%" height="200" src="${embed}" frameborder="0" allowfullscreen></iframe>
+            <iframe id="${iframeId}" width="100%" height="200" src="${embed}" frameborder="0" allowfullscreen onload="incrementView('${data.id}')"></iframe>
+            <div class="actions">
+              <p>👁 ${views} views</p>
+              <button onclick="incrementLike('${data.id}')">❤️ ${likes} Likes</button>
+            </div>
             <p>Category: ${category}</p>
           </div>
         `;
+
         videoListContainer.innerHTML += videoCard;
+
+        if ((index + 1) % 2 === 0) {
+          videoListContainer.innerHTML += `
+            <div class="video-card">
+              <script type="text/javascript">
+                atOptions = {
+                  'key' : '8551d6983361f8b749f60c5710c880f2',
+                  'format' : 'iframe',
+                  'height' : 250,
+                  'width' : 300,
+                  'params' : {}
+                };
+              </script>
+              <script type="text/javascript" src="//www.highperformanceformat.com/8551d6983361f8b749f60c5710c880f2/invoke.js"></script>
+            </div>
+          `;
+        }
       });
     }
 
@@ -149,7 +219,7 @@
         video.category.toLowerCase().includes(query)
       );
       displayVideos(filtered);
-    }
+    };
 
     window.filterByCategory = function(category) {
       if (category === 'all') {
@@ -160,8 +230,9 @@
         );
         displayVideos(filtered);
       }
-    }
+    };
 
+    document.getElementById("searchBtn").addEventListener("click", filterVideos);
     loadVideos();
   </script>
 </body>

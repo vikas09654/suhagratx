@@ -103,11 +103,14 @@
 </head>
 <body>
   <h1>XXXVault 🔥 Romantic Nights</h1>
+
   <script type='text/javascript' src='//pl27142167.profitableratecpm.com/df/ac/51/dfac5181ab36cdb5b07c1d5f6a293265.js'></script>
+
   <div class="filter-bar">
     <input type="text" id="searchInput" placeholder="Search by title or category..." />
     <button id="searchBtn">🔍</button>
   </div>
+
   <div class="category-buttons">
     <button onclick="filterByCategory('all')">All</button>
     <button onclick="filterByCategory('Desi')">Desi</button>
@@ -115,13 +118,21 @@
     <button onclick="filterByCategory('MILF')">MILF</button>
     <button onclick="filterByCategory('Romance')">Romance</button>
   </div>
+
   <div class="main-content">
     <div id="videoList"></div>
     <div class="sidebar">
-      <script async="async" data-cfasync="false" src="//pl27142234.profitableratecpm.com/83870399302cbe5357db75d3d7bbf0a7/invoke.js"></script>
-      <div id="container-83870399302cbe5357db75d3d7bbf0a7"></div>
+      <div id="sidebarAd"></div>
     </div>
   </div>
+
+  <script>
+    const sidebarScript = document.createElement('script');
+    sidebarScript.src = "//pl27142234.profitableratecpm.com/83870399302cbe5357db75d3d7bbf0a7/invoke.js";
+    sidebarScript.async = true;
+    document.getElementById("sidebarAd").appendChild(sidebarScript);
+  </script>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getFirestore, collection, getDocs, updateDoc, doc, increment } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -144,7 +155,7 @@
     async function loadVideos() {
       const querySnapshot = await getDocs(collection(db, "videos"));
       allVideos = [];
-      querySnapshot.forEach((docSnap, index) => {
+      querySnapshot.forEach((docSnap) => {
         const data = docSnap.data();
         allVideos.push({ id: docSnap.id, ...data });
       });
@@ -167,6 +178,16 @@
       loadVideos();
     }
 
+    function addAdBetweenVideos() {
+      const container = document.createElement('div');
+      container.className = 'video-card';
+      const adScript = document.createElement('script');
+      adScript.src = '//www.highperformanceformat.com/8551d6983361f8b749f60c5710c880f2/invoke.js';
+      adScript.async = true;
+      container.appendChild(adScript);
+      return container;
+    }
+
     function displayVideos(videos) {
       videoListContainer.innerHTML = "";
       videos.forEach((data, index) => {
@@ -179,40 +200,27 @@
         embed = extractEmbedUrl(embed);
         const iframeId = `video-${data.id}`;
 
-        const videoCard = `
-          <div class="video-card">
-            <h3>${title}</h3>
-            <iframe id="${iframeId}" width="100%" height="200" src="${embed}" frameborder="0" allowfullscreen onload="incrementView('${data.id}')"></iframe>
-            <div class="actions">
-              <p>👁 ${views} views</p>
-              <button onclick="incrementLike('${data.id}')">❤️ ${likes} Likes</button>
-            </div>
-            <p>Category: ${category}</p>
+        const videoCard = document.createElement('div');
+        videoCard.className = 'video-card';
+        videoCard.innerHTML = `
+          <h3>${title}</h3>
+          <iframe id="${iframeId}" width="100%" height="200" src="${embed}" frameborder="0" allowfullscreen onload="incrementView('${data.id}')"></iframe>
+          <div class="actions">
+            <p>👁 ${views} views</p>
+            <button onclick="incrementLike('${data.id}')">❤️ ${likes} Likes</button>
           </div>
+          <p>Category: ${category}</p>
         `;
-
-        videoListContainer.innerHTML += videoCard;
+        videoListContainer.appendChild(videoCard);
 
         if ((index + 1) % 2 === 0) {
-          videoListContainer.innerHTML += `
-            <div class="video-card">
-              <script type="text/javascript">
-                atOptions = {
-                  'key' : '8551d6983361f8b749f60c5710c880f2',
-                  'format' : 'iframe',
-                  'height' : 250,
-                  'width' : 300,
-                  'params' : {}
-                };
-              </script>
-              <script type="text/javascript" src="//www.highperformanceformat.com/8551d6983361f8b749f60c5710c880f2/invoke.js"></script>
-            </div>
-          `;
+          const ad = addAdBetweenVideos();
+          videoListContainer.appendChild(ad);
         }
       });
     }
 
-    window.filterVideos = function() {
+    window.filterVideos = function () {
       const query = document.getElementById("searchInput").value.toLowerCase();
       const filtered = allVideos.filter(video =>
         video.title.toLowerCase().includes(query) ||
@@ -221,7 +229,7 @@
       displayVideos(filtered);
     };
 
-    window.filterByCategory = function(category) {
+    window.filterByCategory = function (category) {
       if (category === 'all') {
         displayVideos(allVideos);
       } else {

@@ -6,25 +6,21 @@
   <title>XXXVault</title>
   <style>
     body {
-      background: #111;
-      color: #fff;
+      margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #2c003e, #5e005e, #960036);
+      color: #fff;
     }
-    .video-card {
-      background: #222;
-      padding: 16px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px #e91e63;
-    }
-    iframe {
-      width: 100%;
-      border-radius: 8px;
-      margin-top: 10px;
+    h1 {
+      text-align: center;
+      color: #ff69b4;
+      padding: 20px;
+      text-shadow: 0 0 10px #ff69b4;
     }
     .filter-bar {
       text-align: center;
-      margin: 20px auto;
+      margin: 20px auto 10px;
     }
     .filter-bar input {
       padding: 10px;
@@ -32,19 +28,65 @@
       border-radius: 6px;
       border: none;
       outline: none;
+      background-color: #3d003d;
+      color: #fff;
+    }
+    .category-buttons {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .category-buttons button {
+      background-color: #ff007f;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      margin: 5px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 0 5px #ff69b4;
+    }
+    .category-buttons button:hover {
+      background-color: #ff3399;
+    }
+    .video-card {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 16px;
+      margin: 20px auto;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #ff1493;
+      max-width: 800px;
+    }
+    iframe {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+    p {
+      margin-top: 8px;
+      color: #ffb6c1;
     }
   </style>
 </head>
 <body>
-  <h1 style="text-align:center; color:#e91e63;">XXXVault 🔞</h1>
+  <h1>XXXVault 🔥 Romantic Nights</h1>
 
   <!-- Filter Bar -->
   <div class="filter-bar">
     <input type="text" id="searchInput" placeholder="Search by title or category..." oninput="filterVideos()" />
   </div>
 
+  <!-- Category Buttons -->
+  <div class="category-buttons">
+    <button onclick="filterByCategory('all')">All</button>
+    <button onclick="filterByCategory('Desi')">Desi</button>
+    <button onclick="filterByCategory('Teen')">Teen</button>
+    <button onclick="filterByCategory('MILF')">MILF</button>
+    <button onclick="filterByCategory('Romance')">Romance</button>
+  </div>
+
   <!-- Firebase Videos will show here -->
-  <div id="videoList" style="max-width: 800px; margin: auto;"></div>
+  <div id="videoList"></div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -67,6 +109,7 @@
 
     async function loadVideos() {
       const querySnapshot = await getDocs(collection(db, "videos"));
+      allVideos = [];
       querySnapshot.forEach((doc) => {
         const data = doc.data();
         allVideos.push(data);
@@ -86,7 +129,6 @@
         let embed = data.embed;
         const category = data.category || "Uncategorized";
 
-        // Extract only URL if full iframe was added by mistake
         embed = extractEmbedUrl(embed);
 
         const videoCard = `
@@ -107,6 +149,17 @@
         video.category.toLowerCase().includes(query)
       );
       displayVideos(filtered);
+    }
+
+    window.filterByCategory = function(category) {
+      if (category === 'all') {
+        displayVideos(allVideos);
+      } else {
+        const filtered = allVideos.filter(video =>
+          video.category && video.category.toLowerCase() === category.toLowerCase()
+        );
+        displayVideos(filtered);
+      }
     }
 
     loadVideos();

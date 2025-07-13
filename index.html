@@ -4,138 +4,221 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>XXXVault</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     body {
       margin: 0;
-      padding: 0;
       font-family: Arial, sans-serif;
       background: linear-gradient(to right, #2c003e, #5e005e, #960036);
-      color: #fff;
+      color: white;
     }
-    h1 {
-      text-align: center;
-      color: #ff69b4;
-      padding: 20px;
-      text-shadow: 0 0 10px #ff69b4;
-    }
-    .filter-bar {
+    .header {
       display: flex;
-      justify-content: center;
       align-items: center;
-      margin: 20px auto 10px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 10px 20px;
+      background: #1a001f;
+      box-shadow: 0 0 10px #e91e63;
     }
-    .filter-bar input {
-      padding: 10px;
-      width: 250px;
-      border-radius: 6px 0 0 6px;
-      border: none;
-      outline: none;
-      background-color: #3d003d;
-      color: #fff;
-    }
-    .filter-bar button {
-      padding: 10px;
-      border: none;
-      border-radius: 0 6px 6px 0;
-      background: #ff69b4;
-      color: white;
-      cursor: pointer;
-    }
-    .category-buttons {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .category-buttons button {
-      background-color: #ff007f;
-      color: white;
-      border: none;
-      padding: 8px 14px;
-      margin: 5px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-      box-shadow: 0 0 5px #ff69b4;
-    }
-    .category-buttons button:hover {
-      background-color: #ff3399;
-    }
-    .main-content {
+    .brand {
       display: flex;
-      justify-content: center;
-      gap: 20px;
+      align-items: center;
+      font-size: 1.5em;
+      color: #ff69b4;
+      gap: 10px;
     }
-    #videoList {
-      flex: 1;
-      max-width: 800px;
+    .animated-heart {
+      width: 40px;
+      height: 40px;
+      background-image: url('https://i.postimg.cc/fL9kXyzT/animated-heart.gif');
+      background-size: cover;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
     }
-    .sidebar {
-      width: 300px;
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
     }
-    .video-card {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 16px;
-      margin: 20px auto;
-      border-radius: 12px;
-      box-shadow: 0 0 15px #ff1493;
-    }
-    iframe {
-      width: 100%;
-      border-radius: 10px;
+    .search-login-area {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
       margin-top: 10px;
     }
-    p {
-      margin-top: 8px;
-      color: #ffb6c1;
+    .search-login-area input[type="text"] {
+      padding: 8px;
+      border-radius: 4px;
+      border: none;
+      width: 200px;
     }
-    .actions {
+    .search-login-area select,
+    .search-login-area button {
+      padding: 8px 12px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      background-color: #ff69b4;
+      color: white;
+    }
+    .categories {
+      overflow-x: auto;
+      white-space: nowrap;
+      background: #2c002f;
+      padding: 10px 0;
+      box-shadow: inset 0 -1px 0 #ff69b4;
+    }
+    .categories button {
+      background-color: #ff1493;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 14px;
+      margin: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .video-list {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+    .video-card {
+      background-color: rgba(0,0,0,0.6);
+      margin-bottom: 20px;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 0 10px #ff69b4;
+    }
+    .video-card iframe {
+      width: 100%;
+      height: 250px;
+      border-radius: 10px;
+    }
+    .meta {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      margin-top: 10px;
+      flex-wrap: wrap;
     }
-    .actions button {
-      background: none;
+    .description {
+      font-size: 0.9em;
+      margin-top: 5px;
+      color: #ffb6c1;
+    }
+    .comment-box {
+      margin-top: 10px;
+    }
+    .comment-box input {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
       border: none;
-      color: #ff69b4;
-      font-size: 1.1em;
+      margin-top: 5px;
+    }
+    .share {
+      margin-top: 10px;
+    }
+    .video-tags {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .video-tags button {
+      margin: 4px 5px 0 0;
+      background: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 16px;
+      padding: 4px 10px;
       cursor: pointer;
+      font-size: 0.8em;
+    }
+    @media(max-width: 768px) {
+      .header {
+        flex-direction: column;
+        text-align: center;
+      }
+      .search-login-area input[type="text"] {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>XXXVault 🔥 Romantic Nights</h1>
-
-  <script type='text/javascript' src='//pl27142167.profitableratecpm.com/df/ac/51/dfac5181ab36cdb5b07c1d5f6a293265.js'></script>
-
-  <div class="filter-bar">
-    <input type="text" id="searchInput" placeholder="Search by title or category..." />
-    <button id="searchBtn">🔍</button>
-  </div>
-
-  <div class="category-buttons">
-    <button onclick="filterByCategory('all')">All</button>
-    <button onclick="filterByCategory('Desi')">Desi</button>
-    <button onclick="filterByCategory('Teen')">Teen</button>
-    <button onclick="filterByCategory('MILF')">MILF</button>
-    <button onclick="filterByCategory('Romance')">Romance</button>
-  </div>
-
-  <div class="main-content">
-    <div id="videoList"></div>
-    <div class="sidebar">
-      <div id="sidebarAd"></div>
+  <div class="header">
+    <div class="brand">
+      <div class="animated-heart"></div>
+      <span id="siteTitle">XXXVault ♂♀</span>
+    </div>
+    <div class="search-login-area">
+      <input type="text" id="searchInput" placeholder="Search for videos...">
+      <button onclick="searchVideos()" id="searchBtn">Search</button>
+      <select id="languageSelect" onchange="setLanguage()">
+        <option value="en">EN</option>
+        <option value="hi">HI</option>
+      </select>
+      <button onclick="alert('Login clicked')" id="loginBtn">Login</button>
+      <button onclick="alert('Signup clicked')" id="signupBtn">Signup</button>
     </div>
   </div>
 
+  <div class="categories" id="categoryBar"></div>
+  <div class="video-list" id="videoList"></div>
+
   <script>
-    const sidebarScript = document.createElement('script');
-    sidebarScript.src = "//pl27142234.profitableratecpm.com/83870399302cbe5357db75d3d7bbf0a7/invoke.js";
-    sidebarScript.async = true;
-    document.getElementById("sidebarAd").appendChild(sidebarScript);
+    function setLanguage() {
+      const lang = document.getElementById("languageSelect").value;
+      const translations = {
+        en: {
+          siteTitle: 'XXXVault ♂♀',
+          searchPlaceholder: 'Search for videos...',
+          searchBtn: 'Search',
+          login: 'Login',
+          signup: 'Signup'
+        },
+        hi: {
+          siteTitle: 'XXXVault ♂♀',
+          searchPlaceholder: 'वीडियो खोजें...',
+          searchBtn: 'खोजें',
+          login: 'लॉगिन',
+          signup: 'साइनअप'
+        }
+      };
+      const t = translations[lang];
+      document.getElementById("siteTitle").innerText = t.siteTitle;
+      document.getElementById("searchInput").placeholder = t.searchPlaceholder;
+      document.getElementById("searchBtn").innerText = t.searchBtn;
+      document.getElementById("loginBtn").innerText = t.login;
+      document.getElementById("signupBtn").innerText = t.signup;
+    }
+
+    const categories = [
+      "69", "Amateur", "Anal", "Arab", "Asian", "Big Ass", "Big Black Cock", "Big Cock", "Blowjob",
+      "Blonde", "Brunette", "Cougar", "Couple", "Creampie", "Cumshot", "Deep Throat", "Doggy Style",
+      "European", "Fingering", "Footjob", "Gay Porn", "Hardcore", "Homemade", "Kissing", "Latina",
+      "Lesbian", "MILF", "Orgasm", "Pussy", "Redhead", "Rough Sex", "Shower", "Skinny", "Slave",
+      "Small Tits", "Softcore", "Solo", "Sport", "Stepfather", "Stepmom", "Stepsister", "Stepbrother",
+      "Stockings", "Striptease", "Teen", "Threesome", "Upskirt", "Vibrator", "Webcam", "Wife", "Young"
+    ];
+
+    const categoryBar = document.getElementById("categoryBar");
+
+    function displayCategories() {
+      categories.sort().forEach(cat => {
+        const btn = document.createElement('button');
+        btn.textContent = cat;
+        btn.onclick = () => filterByCategory(cat);
+        categoryBar.appendChild(btn);
+      });
+    }
   </script>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, collection, getDocs, updateDoc, doc, increment } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCcWNBqcYhgVzs8DIgB7D8vmDu8if-a8zo",
@@ -149,98 +232,58 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    const videoListContainer = document.getElementById('videoList');
+    const videoList = document.getElementById("videoList");
     let allVideos = [];
 
     async function loadVideos() {
       const querySnapshot = await getDocs(collection(db, "videos"));
       allVideos = [];
-      querySnapshot.forEach((docSnap) => {
-        const data = docSnap.data();
-        allVideos.push({ id: docSnap.id, ...data });
-      });
-      displayVideos(allVideos);
+      querySnapshot.forEach((doc) => allVideos.push(doc.data()));
+      renderVideos(allVideos);
     }
 
     function extractEmbedUrl(embedString) {
-      const match = embedString.match(/src\s*=\s*"([^\"]+)/);
+      const match = embedString.match(/src\\s*=\\s*\"([^\"]+)/);
       return match ? match[1] : embedString;
     }
 
-    async function incrementView(id) {
-      const ref = doc(db, "videos", id);
-      await updateDoc(ref, { views: increment(1) });
-    }
-
-    async function incrementLike(id) {
-      const ref = doc(db, "videos", id);
-      await updateDoc(ref, { likes: increment(1) });
-      loadVideos();
-    }
-
-    function addAdBetweenVideos() {
-      const container = document.createElement('div');
-      container.className = 'video-card';
-      const adScript = document.createElement('script');
-      adScript.src = '//www.highperformanceformat.com/8551d6983361f8b749f60c5710c880f2/invoke.js';
-      adScript.async = true;
-      container.appendChild(adScript);
-      return container;
-    }
-
-    function displayVideos(videos) {
-      videoListContainer.innerHTML = "";
-      videos.forEach((data, index) => {
-        const title = data.title || "Untitled";
-        let embed = data.embed;
-        const category = data.category || "Uncategorized";
-        const views = data.views || 0;
-        const likes = data.likes || 0;
-
-        embed = extractEmbedUrl(embed);
-        const iframeId = `video-${data.id}`;
-
-        const videoCard = document.createElement('div');
-        videoCard.className = 'video-card';
-        videoCard.innerHTML = `
-          <h3>${title}</h3>
-          <iframe id="${iframeId}" width="100%" height="200" src="${embed}" frameborder="0" allowfullscreen onload="incrementView('${data.id}')"></iframe>
-          <div class="actions">
-            <p>👁 ${views} views</p>
-            <button onclick="incrementLike('${data.id}')">❤️ ${likes} Likes</button>
+    function renderVideos(videos) {
+      videoList.innerHTML = "";
+      videos.forEach((video) => {
+        const embedUrl = extractEmbedUrl(video.embed);
+        const card = document.createElement("div");
+        card.className = "video-card";
+        card.innerHTML = `
+          <h3>${video.title}</h3>
+          <iframe src="${embedUrl}" frameborder="0" allowfullscreen></iframe>
+          <div class="meta">
+            <span>👁 ${video.views || 0} views</span>
+            <span>❤️ ${video.likes || 0} Likes</span>
           </div>
-          <p>Category: ${category}</p>
+          <div class="description">${video.description || ""}</div>
+          <div class="share"><button onclick="navigator.clipboard.writeText('${embedUrl}')">🔗 Copy Embed Link</button></div>
+          <div class="comment-box"><input type="text" placeholder="Leave a comment..."></div>
+          <div class="video-tags"><button onclick="filterByCategory('${video.category}')">${video.category}</button></div>
         `;
-        videoListContainer.appendChild(videoCard);
-
-        if ((index + 1) % 2 === 0) {
-          const ad = addAdBetweenVideos();
-          videoListContainer.appendChild(ad);
-        }
+        videoList.appendChild(card);
       });
     }
 
-    window.filterVideos = function () {
+    function filterByCategory(cat) {
+      const filtered = allVideos.filter(v => v.category?.toLowerCase() === cat.toLowerCase());
+      renderVideos(filtered);
+    }
+
+    window.searchVideos = function () {
       const query = document.getElementById("searchInput").value.toLowerCase();
-      const filtered = allVideos.filter(video =>
-        video.title.toLowerCase().includes(query) ||
-        video.category.toLowerCase().includes(query)
+      const filtered = allVideos.filter(v =>
+        v.title?.toLowerCase().includes(query) ||
+        v.category?.toLowerCase().includes(query)
       );
-      displayVideos(filtered);
+      renderVideos(filtered);
     };
 
-    window.filterByCategory = function (category) {
-      if (category === 'all') {
-        displayVideos(allVideos);
-      } else {
-        const filtered = allVideos.filter(video =>
-          video.category && video.category.toLowerCase() === category.toLowerCase()
-        );
-        displayVideos(filtered);
-      }
-    };
-
-    document.getElementById("searchBtn").addEventListener("click", filterVideos);
+    displayCategories();
     loadVideos();
   </script>
 </body>

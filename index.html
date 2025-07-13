@@ -162,6 +162,56 @@
       }
     }
   </style>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCcWNBqcYhgVzs8DIgB7D8vmDu8if-a8zo",
+      authDomain: "xxxvault-28f70.firebaseapp.com",
+      projectId: "xxxvault-28f70",
+      storageBucket: "xxxvault-28f70.firebasestorage.app",
+      messagingSenderId: "226704398059",
+      appId: "1:226704398059:web:9f02b1013f14ada73090ae"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const videoList = document.getElementById("videoList");
+
+    function extractEmbedUrl(embedString) {
+      const match = embedString.match(/src\s*=\s*"([^"]+)/);
+      return match ? match[1] : embedString;
+    }
+
+    async function loadVideos() {
+      const querySnapshot = await getDocs(collection(db, "videos"));
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const embed = extractEmbedUrl(data.embed);
+        const videoCard = document.createElement("div");
+        videoCard.className = "video-card";
+        videoCard.innerHTML = `
+          <h3>${data.title}</h3>
+          <iframe src="${embed}" frameborder="0" allowfullscreen></iframe>
+          <div class="meta">
+            <span>👁 ${data.views || 0} views</span>
+            <span>❤️ ${data.likes || 0} Likes</span>
+          </div>
+          <div class="description">${data.description || ""}</div>
+          <div class="comment-box">
+            <input type="text" placeholder="Leave a comment...">
+            <button>Send</button>
+          </div>
+          <div class="video-tags"><button>${data.category}</button></div>
+        `;
+        videoList.appendChild(videoCard);
+      });
+    }
+
+    loadVideos();
+  </script>
 </head>
 <body>
   <div id="sidebarAd">

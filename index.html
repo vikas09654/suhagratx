@@ -138,6 +138,17 @@
       cursor: pointer;
       font-size: 0.8em;
     }
+    .ad-between {
+      margin: 20px auto;
+      text-align: center;
+    }
+    #sidebarAd {
+      position: fixed;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 9999;
+    }
     @media(max-width: 768px) {
       .header {
         flex-direction: column;
@@ -146,10 +157,20 @@
       .search-login-area input[type="text"] {
         width: 100%;
       }
+      #sidebarAd {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
+  <div id="sidebarAd">
+    <script async="async" data-cfasync="false" src="//pl27142234.profitableratecpm.com/83870399302cbe5357db75d3d7bbf0a7/invoke.js"></script>
+    <div id="container-83870399302cbe5357db75d3d7bbf0a7"></div>
+  </div>
+
+  <script type="text/javascript" src="//pl27142167.profitableratecpm.com/df/ac/51/dfac5181ab36cdb5b07c1d5f6a293265.js"></script>
+
   <div class="header">
     <div class="brand">
       <span class="red-heart">❤</span>
@@ -170,143 +191,17 @@
   <div class="categories" id="categoryBar"></div>
   <div class="video-list" id="videoList"></div>
 
-  <script>
-    function setLanguage() {
-      const lang = document.getElementById("languageSelect").value;
-      const translations = {
-        en: {
-          siteTitle: 'XXXVault',
-          searchPlaceholder: 'Search for videos...',
-          searchBtn: 'Search',
-          login: 'Login',
-          signup: 'Signup'
-        },
-        hi: {
-          siteTitle: 'XXXVault',
-          searchPlaceholder: 'वीडियो खोजें...',
-          searchBtn: 'खोजें',
-          login: 'लॉगिन',
-          signup: 'साइनअप'
-        }
+  <div class="ad-between">
+    <script type="text/javascript">
+      atOptions = {
+        'key' : '8551d6983361f8b749f60c5710c880f2',
+        'format' : 'iframe',
+        'height' : 250,
+        'width' : 300,
+        'params' : {}
       };
-      const t = translations[lang];
-      document.getElementById("siteTitle").innerText = t.siteTitle;
-      document.getElementById("searchInput").placeholder = t.searchPlaceholder;
-      document.getElementById("searchBtn").innerText = t.searchBtn;
-      document.getElementById("loginBtn").innerText = t.login;
-      document.getElementById("signupBtn").innerText = t.signup;
-    }
-
-    const categories = [/* Your list of categories here... */];
-
-    const categoryBar = document.getElementById("categoryBar");
-
-    function displayCategories() {
-      categories.sort().forEach(cat => {
-        const btn = document.createElement('button');
-        btn.textContent = cat;
-        btn.onclick = () => filterByCategory(cat);
-        categoryBar.appendChild(btn);
-      });
-    }
-  </script>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyCcWNBqcYhgVzs8DIgB7D8vmDu8if-a8zo",
-      authDomain: "xxxvault-28f70.firebaseapp.com",
-      projectId: "xxxvault-28f70",
-      storageBucket: "xxxvault-28f70.appspot.com",
-      messagingSenderId: "226704398059",
-      appId: "1:226704398059:web:9f02b1013f14ada73090ae"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    const videoList = document.getElementById("videoList");
-    let allVideos = [];
-
-    async function loadVideos() {
-      const querySnapshot = await getDocs(collection(db, "videos"));
-      allVideos = [];
-      querySnapshot.forEach((doc) => allVideos.push({ id: doc.id, ...doc.data() }));
-      renderVideos(allVideos);
-    }
-
-    function extractEmbedUrl(embedString) {
-      const match = embedString.match(/src\s*=\s*"([^"]+)/);
-      return match ? match[1] : embedString;
-    }
-
-    function renderVideos(videos) {
-      videoList.innerHTML = "";
-      videos.forEach((video) => {
-        const embedUrl = extractEmbedUrl(video.embed);
-        const card = document.createElement("div");
-        card.className = "video-card";
-        const commentsHtml = (video.comments || []).map(c => `<div>${c}</div>`).join('');
-        card.innerHTML = `
-          <h3>${video.title}</h3>
-          <iframe src="${embedUrl}" frameborder="0" allowfullscreen></iframe>
-          <div class="meta">
-            <span>👁 ${video.views || 0} views</span>
-            <span>❤️ ${video.likes || 0} Likes</span>
-          </div>
-          <div class="description">${video.description || ""}</div>
-          <div class="comment-box">
-            <input type="text" placeholder="Leave a comment..." id="comment-${video.id}" />
-            <button onclick="submitComment('${video.id}')">Send</button>
-            <div class="comments-display">${commentsHtml}</div>
-          </div>
-          <div class="video-tags"><button onclick="filterByCategory('${video.category}')">${video.category}</button></div>
-        `;
-        videoList.appendChild(card);
-      });
-    }
-
-    window.submitComment = async function(videoId) {
-      const commentInput = document.getElementById(`comment-${videoId}`);
-      const comment = commentInput.value;
-      if (!comment) return;
-      const videoRef = collection(db, "videos");
-      const querySnapshot = await getDocs(videoRef);
-      let videoDoc = null;
-      querySnapshot.forEach(doc => {
-        if (doc.id === videoId) videoDoc = doc;
-      });
-      if (videoDoc) {
-        const data = videoDoc.data();
-        const comments = data.comments || [];
-        comments.push(comment);
-        await addDoc(collection(db, "videos"), {
-          ...data,
-          comments: comments
-        });
-        commentInput.value = "";
-        loadVideos();
-      }
-    }
-
-    function filterByCategory(cat) {
-      const filtered = allVideos.filter(v => v.category?.toLowerCase() === cat.toLowerCase());
-      renderVideos(filtered);
-    }
-
-    window.searchVideos = function () {
-      const query = document.getElementById("searchInput").value.toLowerCase();
-      const filtered = allVideos.filter(v =>
-        v.title?.toLowerCase().includes(query) ||
-        v.category?.toLowerCase().includes(query)
-      );
-      renderVideos(filtered);
-    };
-
-    displayCategories();
-    loadVideos();
-  </script>
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/8551d6983361f8b749f60c5710c880f2/invoke.js"></script>
+  </div>
 </body>
 </html>

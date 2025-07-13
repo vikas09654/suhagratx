@@ -24,22 +24,14 @@
     .brand {
       display: flex;
       align-items: center;
-      font-size: 1.5em;
+      font-size: 2.5em;
+      font-weight: bold;
       color: #ff69b4;
       gap: 10px;
     }
-    .animated-heart {
-      width: 40px;
-      height: 40px;
-      background-image: url('https://i.postimg.cc/fL9kXyzT/animated-heart.gif');
-      background-size: cover;
-      border-radius: 50%;
-      animation: pulse 1.5s infinite;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
+    .red-heart {
+      color: red;
+      font-size: 1.2em;
     }
     .search-login-area {
       display: flex;
@@ -112,14 +104,24 @@
       margin-top: 10px;
     }
     .comment-box input {
-      width: 100%;
+      width: 80%;
       padding: 8px;
       border-radius: 4px;
       border: none;
-      margin-top: 5px;
     }
-    .share {
+    .comment-box button {
+      padding: 8px 12px;
+      margin-left: 5px;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .comments-display {
       margin-top: 10px;
+      font-size: 0.85em;
+      color: #ccc;
     }
     .video-tags {
       margin-top: 10px;
@@ -150,8 +152,8 @@
 <body>
   <div class="header">
     <div class="brand">
-      <div class="animated-heart"></div>
-      <span id="siteTitle">XXXVault ♂♀</span>
+      <span class="red-heart">❤</span>
+      <span id="siteTitle">XXXVault</span>
     </div>
     <div class="search-login-area">
       <input type="text" id="searchInput" placeholder="Search for videos...">
@@ -173,14 +175,14 @@
       const lang = document.getElementById("languageSelect").value;
       const translations = {
         en: {
-          siteTitle: 'XXXVault ♂♀',
+          siteTitle: 'XXXVault',
           searchPlaceholder: 'Search for videos...',
           searchBtn: 'Search',
           login: 'Login',
           signup: 'Signup'
         },
         hi: {
-          siteTitle: 'XXXVault ♂♀',
+          siteTitle: 'XXXVault',
           searchPlaceholder: 'वीडियो खोजें...',
           searchBtn: 'खोजें',
           login: 'लॉगिन',
@@ -195,14 +197,7 @@
       document.getElementById("signupBtn").innerText = t.signup;
     }
 
-    const categories = [
-      "69", "Amateur", "Anal", "Arab", "Asian", "Big Ass", "Big Black Cock", "Big Cock", "Blowjob",
-      "Blonde", "Brunette", "Cougar", "Couple", "Creampie", "Cumshot", "Deep Throat", "Doggy Style",
-      "European", "Fingering", "Footjob", "Gay Porn", "Hardcore", "Homemade", "Kissing", "Latina",
-      "Lesbian", "MILF", "Orgasm", "Pussy", "Redhead", "Rough Sex", "Shower", "Skinny", "Slave",
-      "Small Tits", "Softcore", "Solo", "Sport", "Stepfather", "Stepmom", "Stepsister", "Stepbrother",
-      "Stockings", "Striptease", "Teen", "Threesome", "Upskirt", "Vibrator", "Webcam", "Wife", "Young"
-    ];
+    const categories = [/* Your list of categories here... */];
 
     const categoryBar = document.getElementById("categoryBar");
 
@@ -218,13 +213,13 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCcWNBqcYhgVzs8DIgB7D8vmDu8if-a8zo",
       authDomain: "xxxvault-28f70.firebaseapp.com",
       projectId: "xxxvault-28f70",
-      storageBucket: "xxxvault-28f70.firebasestorage.app",
+      storageBucket: "xxxvault-28f70.appspot.com",
       messagingSenderId: "226704398059",
       appId: "1:226704398059:web:9f02b1013f14ada73090ae"
     };
@@ -238,12 +233,12 @@
     async function loadVideos() {
       const querySnapshot = await getDocs(collection(db, "videos"));
       allVideos = [];
-      querySnapshot.forEach((doc) => allVideos.push(doc.data()));
+      querySnapshot.forEach((doc) => allVideos.push({ id: doc.id, ...doc.data() }));
       renderVideos(allVideos);
     }
 
     function extractEmbedUrl(embedString) {
-      const match = embedString.match(/src\\s*=\\s*\"([^\"]+)/);
+      const match = embedString.match(/src\s*=\s*"([^"]+)/);
       return match ? match[1] : embedString;
     }
 
@@ -253,6 +248,7 @@
         const embedUrl = extractEmbedUrl(video.embed);
         const card = document.createElement("div");
         card.className = "video-card";
+        const commentsHtml = (video.comments || []).map(c => `<div>${c}</div>`).join('');
         card.innerHTML = `
           <h3>${video.title}</h3>
           <iframe src="${embedUrl}" frameborder="0" allowfullscreen></iframe>
@@ -261,12 +257,38 @@
             <span>❤️ ${video.likes || 0} Likes</span>
           </div>
           <div class="description">${video.description || ""}</div>
-          <div class="share"><button onclick="navigator.clipboard.writeText('${embedUrl}')">🔗 Copy Embed Link</button></div>
-          <div class="comment-box"><input type="text" placeholder="Leave a comment..."></div>
+          <div class="comment-box">
+            <input type="text" placeholder="Leave a comment..." id="comment-${video.id}" />
+            <button onclick="submitComment('${video.id}')">Send</button>
+            <div class="comments-display">${commentsHtml}</div>
+          </div>
           <div class="video-tags"><button onclick="filterByCategory('${video.category}')">${video.category}</button></div>
         `;
         videoList.appendChild(card);
       });
+    }
+
+    window.submitComment = async function(videoId) {
+      const commentInput = document.getElementById(`comment-${videoId}`);
+      const comment = commentInput.value;
+      if (!comment) return;
+      const videoRef = collection(db, "videos");
+      const querySnapshot = await getDocs(videoRef);
+      let videoDoc = null;
+      querySnapshot.forEach(doc => {
+        if (doc.id === videoId) videoDoc = doc;
+      });
+      if (videoDoc) {
+        const data = videoDoc.data();
+        const comments = data.comments || [];
+        comments.push(comment);
+        await addDoc(collection(db, "videos"), {
+          ...data,
+          comments: comments
+        });
+        commentInput.value = "";
+        loadVideos();
+      }
     }
 
     function filterByCategory(cat) {

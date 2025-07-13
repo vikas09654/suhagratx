@@ -189,6 +189,22 @@
   </div>
 
   <div class="categories" id="categoryBar"></div>
+  <script>
+    const categories = ["69", "Amateur", "Anal", "Arab", "Asian", "Big Ass", "Big Black Cock", "Big Cock", "Blowjob",
+      "Blonde", "Brunette", "Cougar", "Couple", "Creampie", "Cumshot", "Deep Throat", "Doggy Style",
+      "European", "Fingering", "Footjob", "Gay Porn", "Hardcore", "Homemade", "Kissing", "Latina",
+      "Lesbian", "MILF", "Orgasm", "Pussy", "Redhead", "Rough Sex", "Shower", "Skinny", "Slave",
+      "Small Tits", "Softcore", "Solo", "Sport", "Stepfather", "Stepmom", "Stepsister", "Stepbrother",
+      "Stockings", "Striptease", "Teen", "Threesome", "Upskirt", "Vibrator", "Webcam", "Wife", "Young"];
+    const categoryBar = document.getElementById("categoryBar");
+    categories.sort().forEach(cat => {
+      const btn = document.createElement('button');
+      btn.textContent = cat;
+      btn.onclick = () => searchVideos(cat);
+      categoryBar.appendChild(btn);
+    });
+  </script>
+
   <div class="video-list" id="videoList"></div>
 
   <div class="ad-between">

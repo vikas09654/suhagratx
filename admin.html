@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>XXXVault Admin Panel</title>
   <style>
     body {
@@ -63,6 +63,12 @@
       cursor: pointer;
       color: white;
     }
+    #preview {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #000;
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
@@ -78,7 +84,8 @@
     <input type="text" id="title" placeholder="Video Title" required />
     <input type="text" id="category" placeholder="Category (e.g., Teen, MILF)" required />
     <textarea id="description" placeholder="Description (optional)"></textarea>
-    <textarea id="embed" placeholder="Paste iframe embed code here..." required></textarea>
+    <textarea id="embed" placeholder="Paste iframe code or src URL..." required></textarea>
+    <div id="preview"></div>
     <button type="submit">Upload Video</button>
   </form>
 
@@ -105,6 +112,8 @@
     const loginSection = document.getElementById("loginSection");
     const uploadForm = document.getElementById("uploadForm");
     const videoList = document.getElementById("videoList");
+    const embedField = document.getElementById("embed");
+    const previewBox = document.getElementById("preview");
 
     window.loginAdmin = async function () {
       const email = document.getElementById("adminEmail").value;
@@ -127,13 +136,26 @@
       }
     };
 
+    embedField.addEventListener("input", () => {
+      const raw = embedField.value;
+      const match = raw.match(/src\\s*=\\s*\\\"([^\\\"]+)/);
+      const src = match ? match[1] : raw.trim();
+      if (src.startsWith("http")) {
+        previewBox.innerHTML = `<iframe width="100%" height="200" src="${src}" frameborder="0" allowfullscreen></iframe>`;
+      } else {
+        previewBox.innerHTML = `<p style='color:#ccc;'>⚠️ Invalid or empty src</p>`;
+      }
+    });
+
     const uploadFormEl = document.getElementById("uploadForm");
     uploadFormEl?.addEventListener("submit", async (e) => {
       e.preventDefault();
       const title = document.getElementById("title").value;
       const category = document.getElementById("category").value;
       const description = document.getElementById("description").value;
-      const embed = document.getElementById("embed").value;
+      const rawEmbed = embedField.value;
+      const match = rawEmbed.match(/src\\s*=\\s*\\\"([^\\\"]+)/);
+      const embed = match ? match[1] : rawEmbed.trim();
 
       try {
         await addDoc(collection(db, "videos"), {
@@ -146,6 +168,7 @@
         });
         alert("✅ Video uploaded successfully!");
         uploadForm.reset();
+        previewBox.innerHTML = "";
         loadVideos();
       } catch (err) {
         console.error("Upload failed:", err);
@@ -160,13 +183,11 @@
         const video = docSnap.data();
         const videoDiv = document.createElement("div");
         videoDiv.className = "video-item";
-        const match = video.embed.match(/src\\s*=\\s*\\\"([^\\\"]+)/);
-        const src = match ? match[1] : "";
         videoDiv.innerHTML = `
           <h3>${video.title}</h3>
           <p>Category: ${video.category}</p>
           <p>${video.description}</p>
-          <iframe src="${src}" frameborder="0" allowfullscreen></iframe>
+          <iframe src="${video.embed}" frameborder="0" allowfullscreen></iframe>
           <button onclick="deleteVideo('${docSnap.id}')">🗑 Delete</button>
         `;
         videoList.appendChild(videoDiv);

@@ -5,142 +5,133 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>XXXVault</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary-color: #ff9900;
+      --background: #181818;
+      --card-bg: #1e1e1e;
+      --text-color: #fff;
+      --accent: #ff69b4;
+    }
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #2c003e, #5e005e, #960036);
-      color: white;
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--background);
+      color: var(--text-color);
     }
     .header {
+      background: #000;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
+      align-items: center;
       padding: 10px 20px;
-      background: #1a001f;
-      box-shadow: 0 0 10px #e91e63;
+      box-shadow: 0 0 10px var(--primary-color);
+      flex-wrap: wrap;
     }
     .brand {
       display: flex;
       align-items: center;
-      font-size: 2.5em;
+      font-size: 2em;
       font-weight: bold;
-      color: #ff69b4;
-      gap: 10px;
+      color: var(--primary-color);
     }
-    .red-heart {
-      color: red;
-      font-size: 1.2em;
+    .brand .heart {
+      color: var(--accent);
+      margin-right: 8px;
     }
-    .search-login-area {
+    .search-bar {
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-      margin-top: 10px;
+      flex-grow: 1;
+      margin: 10px 20px;
+      min-width: 250px;
     }
-    .search-login-area input[type="text"] {
+    .search-bar input {
+      width: 100%;
       padding: 8px;
-      border-radius: 4px;
       border: none;
-      width: 200px;
+      border-radius: 4px 0 0 4px;
     }
-    .search-login-area select,
-    .search-login-area button {
+    .search-bar button {
       padding: 8px 12px;
-      border-radius: 4px;
+      background: var(--primary-color);
       border: none;
-      cursor: pointer;
-      background-color: #ff69b4;
       color: white;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+    .auth-buttons button {
+      background: var(--primary-color);
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      margin: 5px;
+      border-radius: 4px;
+      cursor: pointer;
     }
     .categories {
-      overflow-x: auto;
-      white-space: nowrap;
-      background: #2c002f;
-      padding: 10px 0;
-      box-shadow: inset 0 -1px 0 #ff69b4;
+      background: #111;
+      padding: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
     }
     .categories button {
-      background-color: #ff1493;
+      background: #333;
       color: white;
       border: none;
+      padding: 6px 12px;
       border-radius: 20px;
-      padding: 8px 14px;
-      margin: 5px;
-      font-weight: bold;
       cursor: pointer;
     }
     .video-list {
-      max-width: 900px;
+      max-width: 1200px;
       margin: auto;
       padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
     }
     .video-card {
-      background-color: rgba(0,0,0,0.6);
-      margin-bottom: 20px;
+      background-color: var(--card-bg);
       border-radius: 10px;
-      padding: 15px;
-      box-shadow: 0 0 10px #ff69b4;
+      overflow: hidden;
+      box-shadow: 0 0 10px #000;
     }
     .video-card iframe {
       width: 100%;
-      height: 250px;
-      border-radius: 10px;
-    }
-    .meta {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 10px;
-      flex-wrap: wrap;
-    }
-    .description {
-      font-size: 0.9em;
-      margin-top: 5px;
-      color: #ffb6c1;
-    }
-    .comment-box {
-      margin-top: 10px;
-    }
-    .comment-box input {
-      width: 80%;
-      padding: 8px;
-      border-radius: 4px;
+      height: 180px;
       border: none;
     }
-    .comment-box button {
-      padding: 8px 12px;
-      margin-left: 5px;
-      background-color: #ff69b4;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
+    .video-card h3 {
+      padding: 10px;
+      margin: 0;
     }
-    .comments-display {
-      margin-top: 10px;
+    .video-card .meta {
+      padding: 0 10px 10px;
       font-size: 0.85em;
       color: #ccc;
     }
-    .video-tags {
-      margin-top: 10px;
+    .video-card .description {
+      padding: 0 10px 10px;
+      font-size: 0.85em;
+    }
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+    }
+    .lightbox iframe {
+      width: 80vw;
+      height: 45vw;
+    }
+    .lightbox.show {
       display: flex;
-      flex-wrap: wrap;
-    }
-    .video-tags button {
-      margin: 4px 5px 0 0;
-      background: #ff69b4;
-      color: white;
-      border: none;
-      border-radius: 16px;
-      padding: 4px 10px;
-      cursor: pointer;
-      font-size: 0.8em;
-    }
-    .ad-between {
-      margin: 20px auto;
-      text-align: center;
     }
     #sidebarAd {
       position: fixed;
@@ -149,19 +140,44 @@
       transform: translateY(-50%);
       z-index: 9999;
     }
-    @media(max-width: 768px) {
-      .header {
-        flex-direction: column;
-        text-align: center;
-      }
-      .search-login-area input[type="text"] {
-        width: 100%;
-      }
-      #sidebarAd {
-        display: none;
-      }
+    #loadMoreBtn {
+      background: var(--primary-color);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto 40px;
     }
   </style>
+</head>
+<body>
+  <div class="header">
+    <div class="brand"><span class="heart">❤</span>XXXVault</div>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search videos...">
+      <button onclick="searchVideos()">Search</button>
+    </div>
+    <div class="auth-buttons">
+      <button onclick="showLogin()">Login</button>
+      <button onclick="showSignup()">Signup</button>
+    </div>
+  </div>
+
+  <div class="categories" id="categoryBar"></div>
+  <div class="video-list" id="videoList"></div>
+  <button id="loadMoreBtn">Load More</button>
+
+  <div class="lightbox" id="lightbox">
+    <iframe id="lightboxIframe" src="" allowfullscreen></iframe>
+  </div>
+
+  <div id="sidebarAd">
+    <script async="async" data-cfasync="false" src="//pl27142234.profitableratecpm.com/83870399302cbe5357db75d3d7bbf0a7/invoke.js"></script>
+    <div id="container-83870399302cbe5357db75d3d7bbf0a7"></div>
+  </div>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -170,7 +186,7 @@
       apiKey: "AIzaSyCcWNBqcYhgVzs8DIgB7D8vmDu8if-a8zo",
       authDomain: "xxxvault-28f70.firebaseapp.com",
       projectId: "xxxvault-28f70",
-      storageBucket: "xxxvault-28f70.firebasestorage.app",
+      storageBucket: "xxxvault-28f70.appspot.com",
       messagingSenderId: "226704398059",
       appId: "1:226704398059:web:9f02b1013f14ada73090ae"
     };
@@ -179,95 +195,78 @@
     const db = getFirestore(app);
 
     const videoList = document.getElementById("videoList");
+    const loadMoreBtn = document.getElementById("loadMoreBtn");
+    let allVideos = [];
+    let displayed = 0;
+    const perPage = 8;
 
     function extractEmbedUrl(embedString) {
-      const match = embedString.match(/src\s*=\s*"([^"]+)/);
+      const match = embedString.match(/src\s*=\s*\"([^\"]+)/);
       return match ? match[1] : embedString;
+    }
+
+    function renderVideos() {
+      const slice = allVideos.slice(displayed, displayed + perPage);
+      slice.forEach((data) => {
+        const embed = extractEmbedUrl(data.embed);
+        const card = document.createElement("div");
+        card.className = "video-card";
+        card.innerHTML = `
+          <iframe src="${embed}" allowfullscreen onclick="openLightbox('${embed}')"></iframe>
+          <h3>${data.title}</h3>
+          <div class="meta">👁 ${data.views || 0} views • ❤️ ${data.likes || 0} Likes</div>
+          <div class="description">${data.description || ''}</div>
+        `;
+        videoList.appendChild(card);
+      });
+      displayed += perPage;
+      if (displayed >= allVideos.length) {
+        loadMoreBtn.style.display = 'none';
+      }
     }
 
     async function loadVideos() {
       const querySnapshot = await getDocs(collection(db, "videos"));
       querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        const embed = extractEmbedUrl(data.embed);
-        const videoCard = document.createElement("div");
-        videoCard.className = "video-card";
-        videoCard.innerHTML = `
-          <h3>${data.title}</h3>
-          <iframe src="${embed}" frameborder="0" allowfullscreen></iframe>
-          <div class="meta">
-            <span>👁 ${data.views || 0} views</span>
-            <span>❤️ ${data.likes || 0} Likes</span>
-          </div>
-          <div class="description">${data.description || ""}</div>
-          <div class="comment-box">
-            <input type="text" placeholder="Leave a comment...">
-            <button>Send</button>
-          </div>
-          <div class="video-tags"><button>${data.category}</button></div>
-        `;
-        videoList.appendChild(videoCard);
+        allVideos.push(doc.data());
+      });
+      renderVideos();
+    }
+    loadVideos();
+
+    loadMoreBtn.onclick = () => {
+      renderVideos();
+    };
+
+    function searchVideos() {
+      const keyword = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.video-card');
+      cards.forEach(card => {
+        const title = card.querySelector('h3').innerText.toLowerCase();
+        card.style.display = title.includes(keyword) ? 'block' : 'none';
       });
     }
 
-    loadVideos();
-  </script>
-</head>
-<body>
-  <div id="sidebarAd">
-    <script async="async" data-cfasync="false" src="//pl27142234.profitableratecpm.com/83870399302cbe5357db75d3d7bbf0a7/invoke.js"></script>
-    <div id="container-83870399302cbe5357db75d3d7bbf0a7"></div>
-  </div>
+    window.openLightbox = function(src) {
+      const lightbox = document.getElementById("lightbox");
+      const iframe = document.getElementById("lightboxIframe");
+      iframe.src = src;
+      lightbox.classList.add("show");
+    }
 
-  <script type="text/javascript" src="//pl27142167.profitableratecpm.com/df/ac/51/dfac5181ab36cdb5b07c1d5f6a293265.js"></script>
+    document.getElementById("lightbox").onclick = () => {
+      document.getElementById("lightboxIframe").src = "";
+      document.getElementById("lightbox").classList.remove("show");
+    };
 
-  <div class="header">
-    <div class="brand">
-      <span class="red-heart">❤</span>
-      <span id="siteTitle">XXXVault</span>
-    </div>
-    <div class="search-login-area">
-      <input type="text" id="searchInput" placeholder="Search for videos...">
-      <button onclick="searchVideos()" id="searchBtn">Search</button>
-      <select id="languageSelect" onchange="setLanguage()">
-        <option value="en">EN</option>
-        <option value="hi">HI</option>
-      </select>
-      <button onclick="alert('Login clicked')" id="loginBtn">Login</button>
-      <button onclick="alert('Signup clicked')" id="signupBtn">Signup</button>
-    </div>
-  </div>
-
-  <div class="categories" id="categoryBar"></div>
-  <script>
-    const categories = ["69", "Amateur", "Anal", "Arab", "Asian", "Big Ass", "Big Black Cock", "Big Cock", "Blowjob",
-      "Blonde", "Brunette", "Cougar", "Couple", "Creampie", "Cumshot", "Deep Throat", "Doggy Style",
-      "European", "Fingering", "Footjob", "Gay Porn", "Hardcore", "Homemade", "Kissing", "Latina",
-      "Lesbian", "MILF", "Orgasm", "Pussy", "Redhead", "Rough Sex", "Shower", "Skinny", "Slave",
-      "Small Tits", "Softcore", "Solo", "Sport", "Stepfather", "Stepmom", "Stepsister", "Stepbrother",
-      "Stockings", "Striptease", "Teen", "Threesome", "Upskirt", "Vibrator", "Webcam", "Wife", "Young"];
+    const categories = ["69", "Anal", "Teen", "MILF", "Couple", "Solo", "Lesbian", "Gay", "Hardcore", "Webcam"];
     const categoryBar = document.getElementById("categoryBar");
-    categories.sort().forEach(cat => {
+    categories.forEach(cat => {
       const btn = document.createElement('button');
       btn.textContent = cat;
-      btn.onclick = () => searchVideos(cat);
+      btn.onclick = () => alert(`Filtering by ${cat}`);
       categoryBar.appendChild(btn);
     });
   </script>
-
-  <div class="video-list" id="videoList"></div>
-
-  <div class="ad-between">
-    <script type="text/javascript">
-      atOptions = {
-        'key' : '8551d6983361f8b749f60c5710c880f2',
-        'format' : 'iframe',
-        'height' : 250,
-        'width' : 300,
-        'params' : {}
-      };
-    </script>
-    <script type="text/javascript" src="//www.highperformanceformat.com/8551d6983361f8b749f60c5710c880f2/invoke.js"></script>
-  </div>
 </body>
 </html>

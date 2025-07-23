@@ -133,13 +133,6 @@
     .lightbox.show {
       display: flex;
     }
-    #sidebarAd {
-      position: fixed;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 9999;
-    }
     #loadMoreBtn {
       background: var(--primary-color);
       color: white;
@@ -148,7 +141,21 @@
       border-radius: 5px;
       cursor: pointer;
       display: block;
-      margin: 0 auto 40px;
+      margin: 0 auto 20px;
+    }
+
+    /* Ad Container Styling */
+    #responsiveAdContainer {
+      text-align: center;
+      margin: 20px auto 40px;
+      max-width: 100%;
+      padding: 0 10px;
+    }
+
+    @media (max-width: 768px) {
+      #responsiveAdContainer {
+        padding: 0 5px;
+      }
     }
   </style>
 </head>
@@ -167,15 +174,18 @@
 
   <div class="categories" id="categoryBar"></div>
   <div class="video-list" id="videoList"></div>
+
   <button id="loadMoreBtn">Load More</button>
 
-  <div class="lightbox" id="lightbox">
-    <iframe id="lightboxIframe" src="" allowfullscreen></iframe>
-  </div>
-
-  <div id="sidebarAd">
+  <!-- ✅ Updated: Ad Below Videos -->
+  <div id="responsiveAdContainer">
     <script async="async" data-cfasync="false" src="//pl27142234.profitableratecpm.com/83870399302cbe5357db75d3d7bbf0a7/invoke.js"></script>
     <div id="container-83870399302cbe5357db75d3d7bbf0a7"></div>
+  </div>
+
+  <!-- Lightbox for video fullscreen -->
+  <div class="lightbox" id="lightbox">
+    <iframe id="lightboxIframe" src="" allowfullscreen></iframe>
   </div>
 
   <script type="module">
